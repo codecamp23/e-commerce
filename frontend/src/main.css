@@ -1,27 +1,27 @@
-.gallery_pagination .pagination .page-item  .page-link
-{
+.gallery_pagination .pagination .page-item .page-link {
     border: none;
     color: #31D2F2;
     border-radius: 100%;
     cursor: pointer;
 }
-.gallery_pagination .pagination .page-item  .page-link.active
-{
+
+.gallery_pagination .pagination .page-item .page-link.active {
     background-color: #31D2F2;
     border: none;
     color: #fff;
 }
-.brand .nav .nav-item .nav-link
-{
+
+.brand .nav .nav-item .nav-link {
     font-weight: normal;
     font-size: 14px;
     color: #606060;
 }
-.brand .nav .nav-item .nav-link.active
-{
+
+.brand .nav .nav-item .nav-link.active {
     background-color: #fff;
     color: #000;
 }
+
 .prev {
     background-color: rgb(49, 210, 242);
     border: none;
@@ -29,6 +29,7 @@
     padding: .7em 1.3em;
     color: white;
 }
+
 .prev.disabled {
     background-color: rgb(101, 192, 210);
     border: none;
@@ -36,6 +37,7 @@
     padding: .7em 1.3em;
     color: white;
 }
+
 .next {
     background-color: rgb(49, 210, 242);
     border: none;
@@ -43,10 +45,34 @@
     padding: .7em 1.3em;
     color: white;
 }
+
 .next.disabled {
     background-color: rgb(101, 192, 210);
     border: none;
     border-radius: 5px;
     padding: .7em 1.3em;
     color: white;
+}
+
+/* brand edit page bav tab */
+.brand_edit .nav .nav-item .nav-link.active {
+    background-color: #FFFFFF;
+    color: #000;
+}
+
+.brand_edit .nav .nav-item.isActive {
+    background-color: #FFFFFF;
+    color: #000;
+}
+
+.brand_edit .nav .nav-item {
+    width: 25%;
+}
+
+.brand_edit .nav .nav-item .nav-link {
+    background-color: #DFE0E3;
+    color: #000;
+    border-radius: 3px;
+    margin: 0 .1rem 0 0;
+    width: 100%;
 }

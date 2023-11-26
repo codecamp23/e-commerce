@@ -38,6 +38,16 @@ const Gallery = () => {
         addFrom.current.reset();
     }
 
+    const getGalleryName = (name) => {
+        const maxLength = 13;
+        if (name.length <= maxLength) {
+            return name;
+        } else {
+            const truncatedName = name.slice(0, maxLength) + "... ";
+            return truncatedName;
+        }
+    }
+
     // function handlePageChange(value) {
     //     if (value === "&laquo;" || value === "... ") {
     //         setPage(1);
@@ -143,7 +153,7 @@ const Gallery = () => {
                                                                         </button>
                                                                     </li>
                                                                     <li>
-                                                                        <button onClick={handleCopyClick} className="dropdown-item" type="button">
+                                                                        <button onClick={() => handleCopyClick()} className="dropdown-item" type="button">
                                                                             <input type="hidden" value={`${imageURL}/upload/images/gallery/${gallery.image}`} ref={linkRef} />
                                                                             <i className="lni lni-clipboard me-1"></i>
                                                                             Copy Link
@@ -160,7 +170,7 @@ const Gallery = () => {
                                                         </div>
 
                                                         <div>
-                                                            <div className='mt-2'>{gallery.name}</div>
+                                                            <div className='mt-2'>{getGalleryName(gallery.name)}{gallery.extention}</div>
                                                             <small>size: {gallery.size}kb</small>
                                                         </div>
                                                     </div>

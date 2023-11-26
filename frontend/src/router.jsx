@@ -9,10 +9,11 @@ import ResetPassword from './pages/auth/ResetPassword';
 import Errors from './components/Errors';
 import Dashboard from './pages/backend/Dashboard';
 import Home from './pages/frontend/Home';
-import Brand from './pages/backend/Brand';
+import Brand from './pages/backend/brand/Brand';
 import Gallery from './pages/backend/Gallery';
 import GalleryCategory from './pages/backend/GalleryCategory';
 import GalleryTrustBin from './pages/backend/GalleryTrustBin';
+import BrandEdit from './pages/backend/brand/BrandEdit';
 
 const Router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/brand',
                 element: <Brand />
+            },
+            {
+                path: '/admin/brand/:id',
+                element: <BrandEdit />
             },
             {
                 path: '/admin/gallery-category',

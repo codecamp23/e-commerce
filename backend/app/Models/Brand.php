@@ -11,9 +11,8 @@ class Brand extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'slug', 'image'
+        'name', 'slug', 'image', 'meta_title', 'meta_description'
     ];
-
 
     public static function generateSlug($name)
     {
@@ -27,23 +26,23 @@ class Brand extends Model
         return $slug;
     }
 
-    public static function Image($hasFileImage, $fileImage, $brandImage)
-    {
-        if ($hasFileImage) {
-            $file_path = public_path() . '/upload/images/brands/' . $brandImage;
+    // public static function Image($hasFileImage, $fileImage, $brandImage)
+    // {
+    //     if ($hasFileImage) {
+    //         $file_path = public_path() . '/upload/images/brands/' . $brandImage;
 
-            if (File::exists($file_path)) {
-                File::delete($file_path);
-            }
-            $file = $fileImage;
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '-brand-' . $extension;
-            $file->move('upload/images/brands/', $filename);
-            return $filename;
-        }else{
-            return null;
-        }
-    }
+    //         if (File::exists($file_path)) {
+    //             File::delete($file_path);
+    //         }
+    //         $file = $fileImage;
+    //         $extension = $file->getClientOriginalName();
+    //         $filename = time() . '-brand-' . $extension;
+    //         $file->move('upload/images/brands/', $filename);
+    //         return $filename;
+    //     }else{
+    //         return null;
+    //     }
+    // }
     public static function getBrandById($id)
     {
         return Brand::findOrFail(intval($id));

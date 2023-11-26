@@ -15,8 +15,7 @@ class BrandController extends Controller
     function get()
     {
         $data = [
-            'brands' => Brand::latest()->get(),
-            'url' => URL::to('/')
+            'brands' => Brand::latest()->get()
         ];
         return Response::Out('', '', $data, 200);
     }
@@ -25,8 +24,10 @@ class BrandController extends Controller
         $brand = new Brand();
         $brand->name = $request->name;
         $brand->slug = Brand::generateSlug($request->name);
-        $brand->image = Brand::Image($request->hasFile('image'), $request->file('image'), '');
-        ;
+        $brand->image = $request->image;
+        //seo
+        $brand->meta_title = $request->meta_title;
+        $brand->meta_description = $request->meta_description;
         $brand->save();
 
         return Response::Out('success', 'Brand Created!', '', 200);

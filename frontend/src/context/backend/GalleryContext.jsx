@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import useNotify from './../../notify';
+import copy from 'clipboard-copy';
 
 const GalleryContext = () => {
     const { successMsg, warningMsg } = useNotify();
@@ -84,6 +85,7 @@ const GalleryContext = () => {
             formData.append('gallery_category_id', gallery_category_id.current.value);
             formData.append('image', image.current.files[0]);
             const response = await axiosClient.post('/gallery-store', formData);
+            console.log(response);
             if (response.data.status === 'success') {
                 await getAtFirstGalleries(page, galleryCategoryId, search);
                 closeAddForm.current.click();
@@ -103,14 +105,13 @@ const GalleryContext = () => {
         setGalleryCategory(response.data.data.gallery_category);
     }
 
-    const handleCopyClick = () => {
-        // Select the text in the input field
-        linkRef.current.select();
-        // Copy the selected text
-        document.execCommand('copy');
-        // Deselect the text
-        window.getSelection().removeAllRanges();
-        successMsg("Link copied to clipboard")
+    const handleCopyClick = async () => {
+        try {
+            await copy(linkRef.current.value);
+            successMsg("Link copied to clipboard")
+        } catch (error) {
+            warningMsg("somethings wrong!")
+        }
     }
 
     const DetailImageDownload = async (image) => {

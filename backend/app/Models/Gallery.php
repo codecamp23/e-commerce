@@ -17,7 +17,8 @@ class Gallery extends Model
         'gallery_category_id',
         'file_type',
         'size',
-        'image'
+        'extention',
+        'image',
     ];
 
     public function gallery_category()
@@ -57,6 +58,15 @@ class Gallery extends Model
             $fileSize = $file->getSize();
             $fileSizeInKB = round($fileSize / 1024, 2);
             return $fileSizeInKB;
+        }
+    }
+    public static function imageExtention($requestImage)
+    {
+        if ($requestImage) {
+            $file = $requestImage;
+            $extension = $file->getClientOriginalExtension();
+            $fileExtension = ".".$extension;
+            return $fileExtension;
         }
     }
     public static function Download($requestImage)

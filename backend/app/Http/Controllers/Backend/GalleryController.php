@@ -20,13 +20,18 @@ class GalleryController extends Controller
         if (!is_null($search) && !is_null($gallery_category_id)) {
             $galleries = Gallery::where('gallery_category_id', $gallery_category_id)
                 ->where('name', 'like', '%' . $search . '%')
+                ->latest()
                 ->get();
         } elseif ($gallery_category_id != "") {
-            $galleries = Gallery::where('gallery_category_id', $gallery_category_id)->get();
+            $galleries = Gallery::where('gallery_category_id', $gallery_category_id)
+                ->latest()
+                ->get();
         } elseif ($search != "") {
-            $galleries = Gallery::where('name', 'like', '%' . $search . '%')->get();
+            $galleries = Gallery::where('name', 'like', '%' . $search . '%')
+                ->latest()
+                ->get();
         } else {
-            $galleries = Gallery::get();
+            $galleries = Gallery::latest()->get();
         }
         $data = [
             'galleries' => $galleries,
@@ -41,6 +46,7 @@ class GalleryController extends Controller
         $gallery->gallery_category_id = $request->gallery_category_id;
         $gallery->file_type = Gallery::fileType($request->file('image'));
         $gallery->size = Gallery::imageSize($request->file('image'));
+        $gallery->extention = Gallery::imageExtention($request->file('image'));
         $gallery->image = Gallery::Image($request->hasFile('image'), $request->file('image'), $request->name, '');
         $gallery->save();
 
