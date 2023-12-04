@@ -11,7 +11,7 @@ class Brand extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'slug', 'image', 'meta_title', 'meta_description'
+        'name', 'slug', 'image', 'image_name', 'image_size', 'image_extention', 'meta_title', 'meta_description'
     ];
 
     public static function generateSlug($name)

@@ -25,6 +25,9 @@ class BrandController extends Controller
         $brand->name = $request->name;
         $brand->slug = Brand::generateSlug($request->name);
         $brand->image = $request->image;
+        $brand->image_name = $request->image_name;
+        $brand->image_size = $request->image_size;
+        $brand->image_extention = $request->image_extention;
         //seo
         $brand->meta_title = $request->meta_title;
         $brand->meta_description = $request->meta_description;
@@ -43,10 +46,10 @@ class BrandController extends Controller
         $slug = Brand::generateSlugForUpdate($brand->name, $brand->slug, $request->name);
         $brand->name = $request->name;
         $brand->slug = $slug;
-        $imageName = Brand::Image($request->hasFile('image'), $request->file('image'), $brand->image);
-        if ($imageName != null) {
-            $brand->image = $imageName;
-        }
+        $brand->image = $request->image;
+        $brand->image_name = $request->image_name;
+        $brand->image_size = $request->image_size;
+        $brand->image_extention = $request->image_extention;
         $brand->update();
 
         return Response::Out('success', 'Brand Updated!', '', 200);
@@ -54,11 +57,6 @@ class BrandController extends Controller
     function destroy($id)
     {
         $brand = Brand::getBrandById($id);
-        $file_path = public_path() . '/upload/images/brands/' . $brand->image;
-
-        if (File::exists($file_path)) {
-            File::delete($file_path);
-        }
         $brand->delete();
 
         return Response::Out('success', 'Brand Deleted!', '', 200);

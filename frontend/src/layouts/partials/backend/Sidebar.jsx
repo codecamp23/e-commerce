@@ -1,20 +1,8 @@
-import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import logoIcon from '../../../assets/backend/images/logo-icon.png';
-// import 'perfect-scrollbar/css/perfect-scrollbar.css';
-// import PerfectScrollbar from 'perfect-scrollbar';
 
 const Sidebar = () => {
     const pathname = window.location.pathname;
-    // const sideScrollBarRef = useRef(null);
-
-    // // useEffect(() => {
-    // //     const scrollbar = new PerfectScrollbar(sideScrollBarRef.current);
-
-    // //     return () => {
-    // //         scrollbar.destroy(); // Clean up Perfect Scrollbar when the component unmounts
-    // //     };
-    // // }, [])
 
     return (
         <div className="sidebar-wrapper" data-simplebar="true">
@@ -65,12 +53,12 @@ const Sidebar = () => {
                 </li>
 
                 <li>
-                    <a className="has-arrow" role="button" data-bs-toggle="collapse" data-bs-target="#collapse-galleries" aria-expanded="false">
+                    <a href="javascript:;" className="has-arrow">
                         <div className="parent-icon"><i className="bx bx-image"></i>
                         </div>
                         <div className="menu-title">Galley</div>
                     </a>
-                    <ul className="collapse" id="collapse-galleries">
+                    <ul>
                         <li className={pathname === '/admin/gallery-category' ? 'mm-active' : ''}>
                             <Link to="/admin/gallery-category"><i className='bx bx-radio-circle'></i>
                                 Gallery Category

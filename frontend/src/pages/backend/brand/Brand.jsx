@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import demo from '../../../assets/backend/images/demo.png';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import PerfectScrollbar from 'perfect-scrollbar';
@@ -18,27 +18,24 @@ import '../../../assets/backend/js/bootstrap.bundle.min.js';
 import '../../../assets/backend/js/jquery.min.js'
 import '../../../assets/backend/plugins/simplebar/js/simplebar.min.js';
 import '../../../assets/backend/plugins/metismenu/js/metisMenu.min.js';
-import '../../../assets/backend/plugins/vectormap/jquery-jvectormap-2.0.2.min.js';
-import '../../../assets/backend/plugins/vectormap/jquery-jvectormap-world-mill-en.js';
-import '../../../assets/backend/plugins/chartjs/js/chart.js';
-import '../../../assets/backend/js/index.js';
 import '../../../assets/backend/js/app.js';
 import BrandContext from './../../../context/backend/BrandContext';
-import MainContext from './../../../context/backend/MainContext';
 import Table from './../../../components/backend/brand/Table.jsx';
 import AddForm from './../../../components/backend/brand/AddForm.jsx';
-import ImageUploader from './../../../components/backend/brand/ImageUploader';
+import ImageUploader from '../../../components/backend/ImageUploader.jsx';
+import DeleteModal from '../../../components/backend/DeleteModal.jsx';
 
 const Brand = () => {
-    const { getBrands, loading, brands, name, Image, meta_title, meta_des, Add, errors, errorHandle  } = BrandContext();
-    const { getGalleries, galleries, URL, currentPage, lastPage, galleryByCategory, pageHandle, getGalleryCategories, galleryCategories, getGalleryCategoryId, selectImage, galleryId, addFiles, image, imageUploadModalClose, removeImage, imageCount, onGallerySearch, search } = MainContext();
+    const { getBrands, loading, brands, brandId, name, Image, ImageName, ImageSize, ImageExtention, meta_title, meta_des, Add, Delete, closeDeleteModal, addForm, errors, errorHandle, getGalleries, galleries, URL, currentPage, lastPage, galleryByCategory, pageHandle, getGalleryCategories, galleryCategories, getGalleryCategoryId, selectImage, galleryId, addFiles, gallery, imageUploadModalClose, imageCount, onGallerySearch, search, GalleryImage, setGallery, setImageCount, removeImage  } = BrandContext();
+    const [BId, setBId] = useState('');
     useEffect(() => {
         getBrands();
         getGalleries(currentPage, getGalleryCategoryId, search);
         getGalleryCategories()
+        
         new PerfectScrollbar(".app-container")
     }, [])
-
+    
     return (
         <div className="page-wrapper">
             <div className="page-content">
@@ -46,17 +43,17 @@ const Brand = () => {
                     <div className="col-md-12">
                         <h5 className="fw-semibold py-2">All Brands</h5>
                         <div className="row">
-                            <Table loading={loading} brands={brands} />
-                            <AddForm demo={demo} image={image} removeImage={removeImage} imageCount={imageCount} name={name} Image={Image} meta_title={meta_title} meta_des={meta_des} Add={Add} errors={errors} errorHandle={errorHandle}  />
+                            <Table loading={loading} brands={brands} setBId={setBId} />
+                            <AddForm addForm={addForm} demo={demo} gallery={gallery} imageCount={imageCount} name={name} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} meta_title={meta_title} meta_des={meta_des} Add={Add} errors={errors} errorHandle={errorHandle} setGallery={setGallery} setImageCount={setImageCount} removeImage={removeImage}  />
                         </div>
                     </div>
                 </div>
             </div>
 
 
-            <ImageUploader galleryByCategory={galleryByCategory} galleryCategories={galleryCategories} galleries={galleries} selectImage={selectImage} galleryId={galleryId} url={URL} currentPage={currentPage} lastPage={lastPage} pageHandle={pageHandle} addFiles={addFiles} imageUploadModalClose={imageUploadModalClose} onGallerySearch={onGallerySearch} />
+            <ImageUploader galleryByCategory={galleryByCategory} galleryCategories={galleryCategories} galleries={galleries} selectImage={selectImage} galleryId={galleryId} url={URL} currentPage={currentPage} lastPage={lastPage} pageHandle={pageHandle} addFiles={addFiles} imageUploadModalClose={imageUploadModalClose} onGallerySearch={onGallerySearch} GalleryImage={GalleryImage} setGallery={setGallery} setImageCount={setImageCount} />
 
-            <div className="modal fade" id="" tabIndex="-1">
+            {/* <div className="modal fade" id="" tabIndex="-1">
                 <div className="modal-dialog modal-fullscreen-md-down">
                     <div className="modal-content">
                         <div className="modal-header fs-5">
@@ -82,26 +79,8 @@ const Brand = () => {
                         </form>
                     </div>
                 </div>
-            </div>
-            <div className="modal" id="delete" tabIndex="-1">
-                <div className="modal-dialog  modal-dialog-centered modal-sm modal-fullscreen-md-down">
-                    <div className="modal-content">
-                        <div className="modal-body px-5 pt-4">
-                            <div className="text-end">
-                            </div>
-                            <div className="text-center">
-                                <span className="border border-2 border-warning fs-4 px-2 py-0 text-warning rounded-circle">!</span>
-                                <h4 className="text-warning">Delete</h4>
-                            </div>
-                            <p className="text-center">Are you sure want ot delete this data?</p>
-                            <div className=" text-center">
-                                <button type="button" data-bs-dismiss="modal" className="btn btn-sm btn-secondary me-2">Close</button>
-                                <button type="submit" className="btn btn-sm btn-danger">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div> */}
+            <DeleteModal brandId={brandId} BId={BId} closeDeleteModal={closeDeleteModal} Delete={Delete} />
         </div>
     );
 }

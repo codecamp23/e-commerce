@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import App from "../App";
 import { ToastContainer } from "react-toastify";
@@ -11,7 +11,7 @@ const Guestlayout = () => {
     }, []);
 
     if (token) {
-        return <Navigate to="/admin" />;
+        window.location.href = '/admin';
     } else {
 
         return (

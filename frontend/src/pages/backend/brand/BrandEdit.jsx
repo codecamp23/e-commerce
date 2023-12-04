@@ -19,19 +19,33 @@ import '../../../assets/backend/plugins/simplebar/js/simplebar.min.js';
 import '../../../assets/backend/plugins/metismenu/js/metisMenu.min.js';
 import '../../../assets/backend/plugins/vectormap/jquery-jvectormap-2.0.2.min.js';
 import '../../../assets/backend/plugins/vectormap/jquery-jvectormap-world-mill-en.js';
-import '../../../assets/backend/plugins/chartjs/js/chart.js';
-import '../../../assets/backend/js/index.js';
 import '../../../assets/backend/js/app.js';
 import '../../../main.css';
 import BrandContext from './../../../context/backend/BrandContext';
 import { useParams } from 'react-router-dom';
+import ImageUploader from '../../../components/backend/ImageUploader.jsx';
+import EnEditForm from '../../../components/backend/brand/EnEditForm.jsx';
 const BrandEdit = () => {
-    const { getBrand, brand } = BrandContext();
+    const { getBrand, brand, brandId, name, Image, ImageName, ImageSize, ImageExtention, meta_title, meta_des, Update, errors, editImageCount, getGalleries, galleries, URL, currentPage, lastPage, galleryByCategory, pageHandle, getGalleryCategories, galleryCategories, getGalleryCategoryId, selectImage, galleryId, imageUploadModalClose, onGallerySearch, search, gallery, setGallery, setImageCount, imageCount, setGalleryImage, GalleryImage, imageInfoForm, removeImage, brandImageRemove } = BrandContext();
     const { id } = useParams();
+
     useEffect(() => {
         new PerfectScrollbar(".app-container")
         getBrand(id)
+        getGalleries(currentPage, getGalleryCategoryId, search);
+        getGalleryCategories();
     }, [])
+
+    const getGalleryName = (name) => {
+        const maxLength = 3;
+        if (name.length <= maxLength) {
+            return name;
+        } else {
+            const truncatedName = name.slice(0, maxLength) + "... ";
+            return truncatedName;
+        }
+    }
+
     return (
         <div className="page-wrapper">
             <div className="page-content">
@@ -53,57 +67,7 @@ const BrandEdit = () => {
                                         </ul>
                                         <div className="tab-content" id="pills-tabContent">
                                             <div className="tab-pane fade show active" id="pills-english" role="tabpanel" aria-labelledby="pills-english-tab" tabIndex={0}>
-                                                <div className="row px-4 pb-1 pt-1">
-                                                    <div className="col-md-12">
-                                                        <div className="row pb-3">
-                                                            <div className="col-md-3">Brand Name</div>
-                                                            <div className="col-md-9">
-                                                                <input type="text" className='form-control' placeholder='Brand Name' defaultValue={brand.name} />
-                                                            </div>
-                                                        </div>
-                                                        <div className="row pb-3">
-                                                            <div className="col-md-3">Image</div>
-                                                            <div className="col-md-9">
-                                                                <div className="d-flex" data-bs-toggle="modal" data-bs-target="#imageUploader">
-                                                                    <button type="button" className="bg-body-secondary border-0 py-2 px-3 rounded rounded-end-0">Browser</button>
-                                                                    <button type="button" className="bg-light border-0 w-100 py-2 rounded rounded-start-0 text-start ps-3">{brand.image ? 1 : 0} Choose file</button>
-                                                                </div>
-                                                                <div className="row pt-2">
-                                                                    <div className="col-md-3">
-                                                                        <div className="card px-2 pt-2 position-relative">
-                                                                            <img src={brand.image} style={{ width: "100%" }} alt="..." />
-                                                                            <button type="button" className="btn btn-ms btn-light text-danger position-absolute rounded-circle end-0 top-0 px-0 ps-2 py-0 text-center" style={{ margin: "-.5rem -.5rem 0 0" }}>
-                                                                                <i className="lni lni-close" style={{ fontSize: "12px" }}></i>
-                                                                            </button>
-                                                                            <div className="card-body px-2 pt-0 pb-1">
-                                                                                <span style={{ fontSize: "13px" }}>{brand.name}</span>
-                                                                                <small>{brand.size}</small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="hidden" />
-                                                            </div>
-                                                        </div>
-                                                        <div className="row pb-3">
-                                                            <div className="col-md-3">Meta Title</div>
-                                                            <div className="col-md-9">
-                                                                <input type="text" className='form-control' placeholder='Meta Title' defaultValue={brand.meta_title} />
-                                                            </div>
-                                                        </div>
-                                                        <div className="row pb-3">
-                                                            <div className="col-md-3">Meta Description</div>
-                                                            <div className="col-md-9">
-                                                                <textarea rows="9" className='form-control' defaultValue={brand.meta_description}></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div className="row pb-3 text-end">
-                                                            <div className="col-md-12">
-                                                                <button type="button" className="btn btn-info text-white">Update</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <EnEditForm brandId={brandId} name={name} brand={brand} editImageCount={editImageCount} imageCount={imageCount} gallery={gallery} getGalleryName={getGalleryName} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} meta_title={meta_title} meta_des={meta_des} Update={Update} errors={errors} removeImage={removeImage} brandImageRemove={brandImageRemove} />
                                             </div>
 
                                             <div className="tab-pane fade" id="pills-bangla" role="tabpanel" aria-labelledby="pills-bangla-tab" tabIndex={0}>bangla</div>
@@ -112,6 +76,7 @@ const BrandEdit = () => {
 
                                 </div>
                             </div>
+                            <ImageUploader galleryByCategory={galleryByCategory} galleryCategories={galleryCategories} galleries={galleries} selectImage={selectImage} galleryId={galleryId} url={URL} currentPage={currentPage} lastPage={lastPage} pageHandle={pageHandle} imageUploadModalClose={imageUploadModalClose} onGallerySearch={onGallerySearch} setGallery={setGallery} setImageCount={setImageCount} brandImageRemove={brandImageRemove} setGalleryImage={setGalleryImage} GalleryImage={GalleryImage} imageInfoForm={imageInfoForm} />
                         </div>
                     </div>
                 </div>

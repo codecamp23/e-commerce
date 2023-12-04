@@ -1,9 +1,8 @@
-import { useEffect, useRef } from 'react';
-import 'perfect-scrollbar/css/perfect-scrollbar.css';
+import { useEffect } from 'react';
 import PerfectScrollbar from 'perfect-scrollbar';
 import '../../assets/backend/plugins/vectormap/jquery-jvectormap-2.0.2.css';
 import '../../assets/backend/plugins/simplebar/css/simplebar.css';
-// import '../../assets/backend/plugins/perfect-scrollbar/css/perfect-scrollbar.css'
+import '../../assets/backend/plugins/perfect-scrollbar/css/perfect-scrollbar.css'
 import '../../assets/backend/plugins/metismenu/css/metisMenu.min.css';
 import '../../assets/backend/css/bootstrap.min.css';
 import '../../assets/backend/css/bootstrap-extended.css';
@@ -12,8 +11,9 @@ import '../../assets/backend/css/icons.css';
 import '../../assets/backend/css/dark-theme.css';
 import '../../assets/backend/css/semi-dark.css';
 import '../../assets/backend/css/header-colors.css';
-import '../../assets/backend/css/header-colors.css';
+// import '../../assets/backend/css/pace.min.css';
 // js
+// import '../../assets/backend/js/pace.min.js';
 import '../../assets/backend/js/bootstrap.bundle.min.js';
 import '../../assets/backend/js/jquery.min.js'
 import '../../assets/backend/plugins/simplebar/js/simplebar.min.js';
@@ -28,6 +28,8 @@ const Dashboard = () => {
     useEffect(() => {
         new PerfectScrollbar(".app-container")
     }, [])
+
+
     return (
         <div className="page-wrapper">
             <div className="page-content">

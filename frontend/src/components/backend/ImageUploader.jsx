@@ -1,14 +1,30 @@
 import PropTypes from 'prop-types';
-const ImageUploader = ({ imageUploadModalClose, galleryByCategory, galleryCategories, onGallerySearch, galleries, selectImage, galleryId, url, addFiles, pageHandle, currentPage, lastPage }) => {
-
+import { useLocation, useParams } from 'react-router-dom';
+const ImageUploader = ({ imageUploadModalClose, galleryByCategory, galleryCategories, onGallerySearch, galleries, selectImage, galleryId, url, pageHandle, currentPage, lastPage, setGallery, brandImageRemove, setImageCount, GalleryImage }) => {
+const {pathname} = useLocation();
+const {id} = useParams();
     const getGalleryName = (name) => {
-        const maxLength = 13;
+        const maxLength = 21;
         if (name.length <= maxLength) {
             return name;
         } else {
             const truncatedName = name.slice(0, maxLength) + "... ";
             return truncatedName;
         }
+    }
+
+    const addFiles = () => {
+        setGallery({
+            image: GalleryImage.url,
+            image_name: GalleryImage.name,
+            image_size: GalleryImage.size,
+            image_extention: GalleryImage.extention
+        });
+        setImageCount(1);
+        if (pathname === `/admin/brand/${id}`) {
+            brandImageRemove()
+        }
+        imageUploadModalClose.current.click();
     }
     return (
         <div className="modal fade" id="imageUploader" tabIndex="-1">
@@ -47,7 +63,7 @@ const ImageUploader = ({ imageUploadModalClose, galleryByCategory, galleryCatego
                                     </div>
                                     <div className="col-md-12">
                                         <div className="row">
-                                            {galleries.length > 0 ? galleries.map((gallery) => (<div key={gallery.id} className="col-lg-2 col-md-3 col-sm-4 col-6" onClick={() => selectImage(gallery.id, `${url}/upload/images/gallery/${gallery.image}`)}>
+                                            {galleries.length > 0 ? galleries.map((gallery) => (<div key={gallery.id} className="col-lg-2 col-md-3 col-sm-4 col-6" onClick={() => selectImage(gallery.id, `${url}/upload/images/gallery/${gallery.image}`, gallery.name, gallery.size, gallery.extention)}>
                                                 <div className={gallery.id === galleryId ? "card px-2 py-2 border-2 border-info" : "card px-2 py-2"}>
                                                     <img src={`${url}/upload/images/gallery/${gallery.image}`} className="rounded-top" style={{ widht: "100%", height: "10em" }} alt="..." />
 
@@ -90,6 +106,7 @@ const ImageUploader = ({ imageUploadModalClose, galleryByCategory, galleryCatego
 
 ImageUploader.propTypes = {
     imageUploadModalClose: PropTypes.any,
+    imageInfoForm: PropTypes.any,
     galleryByCategory: PropTypes.any,
     galleryCategories: PropTypes.any,
     onGallerySearch: PropTypes.any,
@@ -100,8 +117,11 @@ ImageUploader.propTypes = {
     currentPage: PropTypes.any,
     lastPage: PropTypes.any,
     pageHandle: PropTypes.any,
+    setGallery: PropTypes.any,
+    setImageCount: PropTypes.any,
+    brandImageRemove: PropTypes.any,
     addFiles: PropTypes.any,
-    otherProp: PropTypes.string.isRequired
+    GalleryImage: PropTypes.any
 }
 
 export default ImageUploader;

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Pagination from '../../../pagination/backend/Pagination';
 
-const Table = ({ loading, brands }) => {
+const Table = ({ loading, brands, setBId }) => {
     return (
         <div className="col-md-8">
             <div className="card rounded-1">
@@ -24,9 +25,9 @@ const Table = ({ loading, brands }) => {
                             </thead>
                             <tbody className="fw-normal" style={{ fontSize: "13px" }}>
                                 {loading === false ? (<tr>
-                                    <td colSpan="4" className="py-3">
+                                    <td colSpan="4" className="p-5">
                                         <div className="text-center">
-                                            <div className="spinner-border" role="status">
+                                            <div className="spinner-border text-info" role="status">
                                                 <span className="visually-hidden">Loading...</span>
                                             </div>
                                         </div>
@@ -43,7 +44,7 @@ const Table = ({ loading, brands }) => {
                                             <Link to={"/admin/brand/"+brand.id} className="btn btn-sm btn-outline-primary p-0 ps-2 pb-1 rounded-circle">
                                                 <i className="lni lni-pencil-alt" style={{ fontSize: "13px" }} />
                                             </Link>
-                                            <button type="button" className='btn btn-sm btn-outline-danger p-0 ps-2 pb-1 rounded-circle ms-1' data-bs-toggle="modal" data-bs-target="#delete">
+                                            <button type="button" onClick={() => setBId(brand.id)} className='btn btn-sm btn-outline-danger p-0 ps-2 pb-1 rounded-circle ms-1' data-bs-toggle="modal" data-bs-target="#delete">
                                                 <i className="lni lni-trash" style={{ fontSize: "13px" }}></i>
                                             </button>
                                         </td>
@@ -56,8 +57,10 @@ const Table = ({ loading, brands }) => {
                             </tbody>
                         </table>
                     </div>
+                    <div className="row">
+                        {/* <Pagination totalPage={totalPage} page={page} limit={limit} siblings={1} onPageChange={handlePageChange} /> */}
+                    </div>
                 </div>
-                {/* <hr /> */}
             </div>
         </div>
     );
@@ -66,7 +69,7 @@ const Table = ({ loading, brands }) => {
 Table.propTypes = {
     brands: PropTypes.any,
     loading: PropTypes.any,
-    otherProp: PropTypes.string.isRequired,
+    setBId: PropTypes.any,
 }
 
 export default Table;

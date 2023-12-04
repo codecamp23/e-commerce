@@ -179,34 +179,6 @@ const Gallery = () => {
                                         </div>
                                     </div>
                                     <Pagination totalPage={totalPage} page={page} limit={limit} siblings={1} onPageChange={handlePageChange} />
-                                    {/* <div className="col-md-12 gallery_pagination">
-                                        <nav aria-label="Page navigation example">
-                                            <ul className="pagination">
-                                                <li className="page-item">
-                                                    <a className="page-link px-3 py-2" href="#" aria-label="Previous">
-                                                        <span aria-hidden="true">«</span>
-                                                    </a>
-                                                </li>
-                                                {array.map(value => {
-                                                    if (value === page) {
-                                                        return (
-                                                            <li key={value} className="page-item ms-2"><a className="page-link active px-3 py-2" onClick={() => handlePageChange(value)}>{value}</a></li>
-                                                        )
-                                                    } else {
-                                                        return (
-                                                            <li key={value} className="page-item ms-2"><a className="page-link px-3 py-2" onClick={() => handlePageChange(value)}>{value}</a></li>
-                                                        )
-                                                    }
-                                                })}
-                                                <li className="page-item ms-2">
-                                                    <a className="page-link px-3 py-2" href="#" aria-label="Next">
-                                                        <span aria-hidden="true">»</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-
-                                    </div> */}
                                 </div>
                             </div>
                         </div>

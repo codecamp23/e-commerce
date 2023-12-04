@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
-    const navigate = useNavigate("");
+    // const navigate = useNavigate("");
 
     const goToAdminPanel = (event) => {
         event.preventDefault();
-        navigate("/admin");
+        window.location.href = "/admin";
     }
     return (
         <div className='mt-5'>

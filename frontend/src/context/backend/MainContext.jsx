@@ -9,8 +9,18 @@ const MainContext = () => {
     const [search, setSearch] = useState('');
     const [galleryId, setGalleryId] = useState(null);
     const [URL, setURL] = useState('');
-    const [ImageUrl, setImageUrl] = useState('');
-    const [image, setImage] = useState('');
+    const [GalleryImage, setGalleryImage] = useState({
+        url: '',
+        name: '',
+        size: '',
+        extention: ''
+    });
+    const [gallery, setGallery] = useState({
+        image: '',
+        image_name: '',
+        image_size: '',
+        image_extention: '',
+    });
     const [imageCount, setImageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(null);
     const [lastPage, setLastPage] = useState(null);
@@ -33,13 +43,13 @@ const MainContext = () => {
             if (currentPage !== lastPage) {
                 page++;
                 setCurrentPage(page)
-                getGalleries(page, getGalleryCategoryId)
+                getGalleries(page, getGalleryCategoryId, search)
             }
         } else {
             if (currentPage > 0) {
                 page--;
                 setCurrentPage(page)
-                getGalleries(page, getGalleryCategoryId)
+                getGalleries(page, getGalleryCategoryId, search)
             }
         }
     }
@@ -51,19 +61,14 @@ const MainContext = () => {
         setSearch(e.target.value)
         getGalleries(1, getGalleryCategoryId, e.target.value)
     }
-    const selectImage = (id, url) => {
+    const selectImage = (id, url, image_name, image_size, image_extention) => {
         setGalleryId(id)
-        setImageUrl(url)
-    }
-    const addFiles = () => {
-        setImage(ImageUrl);
-        setImageCount(1);
-        imageUploadModalClose.current.click();
-    }
-
-    const removeImage = () => {
-        setImage('')
-        setImageCount(0);
+        setGalleryImage({
+            url: url,
+            name: image_name,
+            size: image_size,
+            extention: image_extention
+        })
     }
 
     return {
@@ -80,11 +85,15 @@ const MainContext = () => {
         selectImage,
         galleryId,
         onGallerySearch,
-        addFiles,
-        image,
+        // addFiles,
+        setGallery,
+        GalleryImage,
+        gallery,
         imageUploadModalClose,
-        removeImage,
+        // removeImage,
+        // imageInfoForm,
         imageCount,
+        setImageCount,
         search
     }
 }

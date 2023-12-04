@@ -164,13 +164,18 @@ class GalleryController extends Controller
         if ($gallery_category_id != null && $search != null) {
             $galleries = Gallery::where('gallery_category_id', $request->gallery_category_id)
                 ->where('name', 'like', '%' . $search . '%')
+                ->latest()
                 ->paginate(6);
         } elseif ($gallery_category_id != null) {
-            $galleries = Gallery::where('gallery_category_id', $request->gallery_category_id)->paginate(6);
+            $galleries = Gallery::where('gallery_category_id', $request->gallery_category_id)
+                ->latest()
+                ->paginate(6);
         } elseif ($search != null) {
-            $galleries = Gallery::where('name', 'like', '%' . $search . '%')->paginate(6);
+            $galleries = Gallery::where('name', 'like', '%' . $search . '%')
+                ->latest()
+                ->paginate(6);
         } else {
-            $galleries = Gallery::paginate(6);
+            $galleries = Gallery::latest()->paginate(6);
         }
         $data = [
             'galleries' => $galleries,
