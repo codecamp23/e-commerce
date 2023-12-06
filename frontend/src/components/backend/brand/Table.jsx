@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Pagination from '../../../pagination/backend/Pagination';
 
-const Table = ({ loading, brands, setBId }) => {
+const Table = ({ loading, brands, setBId, totalPage, page, limit, handlePageChange, brandSearchHandle }) => {
     return (
         <div className="col-md-8">
             <div className="card rounded-1">
                 <div className='border border-top-0 border-end-0 border-start-0 border-bottom-2 border-light py-3 px-4 d-flex justify-content-between align-items-center'>
                     <span className="fs-6 fw-normal">Brand</span>
                     <div>
-                        <input type="search" name='search' id='search' className="form-control" placeholder="Search banrd ..." />
+                        <input type="search" onChange={brandSearchHandle} className="form-control" placeholder="Search banrd ..." />
                     </div>
                 </div>
                 <div className="card-body px-4">
@@ -35,7 +35,7 @@ const Table = ({ loading, brands, setBId }) => {
                                     </td>
                                 </tr>) : (brands.length > 0 ? brands.map((brand, index) => (
                                     <tr key={index} className="py-3 text-center">
-                                        <td className="text-muted py-md-3 py-0">{index + 1}</td>
+                                        <td className="text-muted py-md-3 py-0">{index + 1 + (page - 1) * limit}</td>
                                         <td className="text-muted py-md-3 py-0">{brand.name}</td>
                                         <td className="text-muted">
                                             <img src={brand.image} style={{ width: "60px", height: "50px" }} alt="" />
@@ -58,7 +58,7 @@ const Table = ({ loading, brands, setBId }) => {
                         </table>
                     </div>
                     <div className="row">
-                        {/* <Pagination totalPage={totalPage} page={page} limit={limit} siblings={1} onPageChange={handlePageChange} /> */}
+                        <Pagination totalPage={totalPage} page={page} limit={limit} siblings={1} onPageChange={handlePageChange} />
                     </div>
                 </div>
             </div>
@@ -70,6 +70,11 @@ Table.propTypes = {
     brands: PropTypes.any,
     loading: PropTypes.any,
     setBId: PropTypes.any,
+    page: PropTypes.any,
+    limit: PropTypes.any,
+    totalPage: PropTypes.any,
+    handlePageChange: PropTypes.any,
+    brandSearchHandle: PropTypes.any,
 }
 
 export default Table;

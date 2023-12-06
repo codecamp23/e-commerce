@@ -6,16 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Exceptions\Response;
 use App\Http\Requests\Brand\StoreRequest;
 use App\Http\Requests\Brand\UpdateRequest;
-use App\Models\Brand;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\URL;
+use App\Models\Brand; 
+use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    function get()
+    function get(Request $request)
     {
+        $search = $request->search;
+        if ($search != 'undefined') {
+            $brands = Brand::where('name', 'like', '%'.$search.'%')->latest()->get();
+        }else{
+            $brands = Brand::latest()->get();
+        } 
+
         $data = [
-            'brands' => Brand::latest()->get()
+            'brands' => $brands
         ];
         return Response::Out('', '', $data, 200);
     }

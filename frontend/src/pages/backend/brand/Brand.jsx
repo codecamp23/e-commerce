@@ -26,10 +26,10 @@ import ImageUploader from '../../../components/backend/ImageUploader.jsx';
 import DeleteModal from '../../../components/backend/DeleteModal.jsx';
 
 const Brand = () => {
-    const { getBrands, loading, brands, brandId, name, Image, ImageName, ImageSize, ImageExtention, meta_title, meta_des, Add, Delete, closeDeleteModal, addForm, errors, errorHandle, getGalleries, galleries, URL, currentPage, lastPage, galleryByCategory, pageHandle, getGalleryCategories, galleryCategories, getGalleryCategoryId, selectImage, galleryId, addFiles, gallery, imageUploadModalClose, imageCount, onGallerySearch, search, GalleryImage, setGallery, setImageCount, removeImage  } = BrandContext();
+    const { getAtFirstBrands, getBrands, page, limit, totalPage, handlePageChange, loading, brands, brandId, name, Image, ImageName, ImageSize, ImageExtention, meta_title, meta_des, Add, Delete, searchBrand, brandSearchHandle, closeDeleteModal, addForm, errors, errorHandle, getGalleries, galleries, URL, currentPage, lastPage, galleryByCategory, pageHandle, getGalleryCategories, galleryCategories, getGalleryCategoryId, selectImage, galleryId, addFiles, gallery, imageUploadModalClose, imageCount, onGallerySearch, search, GalleryImage, setGallery, setImageCount, removeImage  } = BrandContext();
     const [BId, setBId] = useState('');
     useEffect(() => {
-        getBrands();
+        getAtFirstBrands(page, searchBrand);
         getGalleries(currentPage, getGalleryCategoryId, search);
         getGalleryCategories()
         
@@ -43,7 +43,7 @@ const Brand = () => {
                     <div className="col-md-12">
                         <h5 className="fw-semibold py-2">All Brands</h5>
                         <div className="row">
-                            <Table loading={loading} brands={brands} setBId={setBId} />
+                            <Table loading={loading} brands={brands} setBId={setBId} page={page} limit={limit} totalPage={totalPage} handlePageChange={handlePageChange} brandSearchHandle={brandSearchHandle} />
                             <AddForm addForm={addForm} demo={demo} gallery={gallery} imageCount={imageCount} name={name} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} meta_title={meta_title} meta_des={meta_des} Add={Add} errors={errors} errorHandle={errorHandle} setGallery={setGallery} setImageCount={setImageCount} removeImage={removeImage}  />
                         </div>
                     </div>

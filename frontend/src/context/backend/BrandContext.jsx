@@ -28,6 +28,11 @@ const BrandContext = () => {
     const [lastPage, setLastPage] = useState(null);
     const imageUploadModalClose = useRef();
 
+    // that's pagination 
+    const [page, setPage] = useState(1);
+    const [limit] = useState(5);
+    const [totalPage, setTotalPage] = useState();
+
     // this work for brand crud ===>
     const { successMsg } = useNotify();
     const [brands, setBrands] = useState([]);
@@ -50,6 +55,7 @@ const BrandContext = () => {
     const [errorHandle, setErrorHandle] = useState(false);
     const navigate = useNavigate("");
     const [editImageCount, setEditImageCount] = useState(0);
+    const [searchBrand, setSearchBrand] = useState('');
 
     // this for image gallery start
     const getGalleries = async (page, gallery_category_id, Search) => {
@@ -106,10 +112,42 @@ const BrandContext = () => {
     // this for image gallery end
 
     // brand crud ===>
-    const getBrands = async () => {
-        const response = await axiosClient.get('/brand-get');
-        setBrands(response.data.data.brands);
+    const getAtFirstBrands = async (Page, Search) => {
+        const response = await axiosClient.get(`/brand-get?search=${Search}`);
+        console.log(response);
+        setTotalPage(Math.ceil(response.data.data.brands.length / limit));
+        getBrands(Page, limit, response.data.data.brands);
         setLoading(true)
+    }
+    const getBrands = (Page, Limit, Brands) => {
+        let array = [];
+        for (var i = (Page - 1) * Limit; i < (Page * Limit) && Brands[i]; i++) {
+            array.push(Brands[i]);
+        }
+        setBrands(array);
+    }
+    // handlePageChange for pagination
+    const handlePageChange = (value) => {
+        if (value === "... ") {
+            setPage(1);
+            getAtFirstBrands(1, searchBrand)
+        } else if (value === "&lsaquo;") {
+            if (page !== 1) {
+                setPage(page - 1);
+                getAtFirstBrands(page - 1, searchBrand)
+            }
+        } else if (value === "&rsaquo;") {
+            if (page !== totalPage) {
+                setPage(page + 1);
+                getAtFirstBrands(page + 1, searchBrand)
+            }
+        } else if (value === " ...") {
+            setPage(totalPage);
+            getAtFirstBrands(totalPage, searchBrand)
+        } else {
+            setPage(value);
+            getAtFirstBrands(value, searchBrand)
+        }
     }
     const Add = async (e) => {
         e.preventDefault();
@@ -126,7 +164,7 @@ const BrandContext = () => {
             const response = await axiosClient.post('/brand-store', payload);
             if (response.data.status === 'success') {
                 successMsg(response.data.message);
-                await getBrands();
+                await getAtFirstBrands(page, searchBrand);
                 addForm.current.reset();
                 setImageRemover(true);
                 removeImage()
@@ -143,8 +181,6 @@ const BrandContext = () => {
             setEditImageCount(1)
         }
     }
-
-    // edit brand 
     const Update = async () => {
         try {
             const brand_id = brandId.current.value;
@@ -158,8 +194,7 @@ const BrandContext = () => {
                 meta_description: meta_des.current.value
             }
             const response = await axiosClient.post(`/brand-update/${brand_id}`, payload);
-            if(response.data.status === 'success')
-            {
+            if (response.data.status === 'success') {
                 successMsg(response.data.message);
                 navigate("/admin/brand")
             }
@@ -167,17 +202,19 @@ const BrandContext = () => {
             console.error(error);
         }
     }
-
-    // brand delete 
     const Delete = async () => {
         const brand_id = brandId.current.value;
         const response = await axiosClient.get(`/brand-delete/${brand_id}`);
-        if(response.data.status === 'success')
-        {
+        if (response.data.status === 'success') {
             successMsg(response.data.message);
-            await getBrands();
+            await getAtFirstBrands(page, searchBrand);
             closeDeleteModal.current.click();
         }
+    }
+
+    const brandSearchHandle = (e) => {
+        setSearchBrand(e.target.value);
+        getAtFirstBrands(page, e.target.value);
     }
 
     return {
@@ -207,6 +244,7 @@ const BrandContext = () => {
         search,
 
         // for curd
+        getAtFirstBrands,
         getBrands,
         brands,
         loading,
@@ -229,7 +267,16 @@ const BrandContext = () => {
         Update,
         Delete,
         closeDeleteModal,
-        imageRemover
+        imageRemover,
+
+        // for pagination
+        page,
+        limit,
+        totalPage,
+        handlePageChange,
+
+        // search
+        brandSearchHandle
     }
 }
 

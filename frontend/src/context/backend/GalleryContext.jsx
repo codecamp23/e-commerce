@@ -22,7 +22,7 @@ const GalleryContext = () => {
     const [imageErrorsHandle, setImageErrorsHandle] = useState(false);
     // pagination
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(12);
+    const [limit] = useState(12);
     const [totalPage, setTotalPage] = useState();
     const [trustBinTotalPage, setTrustBinTotalPage] = useState();
     // get gallery with category id 
@@ -85,7 +85,7 @@ const GalleryContext = () => {
             formData.append('gallery_category_id', gallery_category_id.current.value);
             formData.append('image', image.current.files[0]);
             const response = await axiosClient.post('/gallery-store', formData);
-            console.log(response);
+            // console.log(response);
             if (response.data.status === 'success') {
                 await getAtFirstGalleries(page, galleryCategoryId, search);
                 closeAddForm.current.click();
