@@ -26,7 +26,7 @@ import ImageUploader from '../../../components/backend/ImageUploader.jsx';
 import DeleteModal from '../../../components/backend/DeleteModal.jsx';
 
 const Brand = () => {
-    const { getAtFirstBrands, getBrands, page, limit, totalPage, handlePageChange, loading, brands, brandId, name, Image, ImageName, ImageSize, ImageExtention, meta_title, meta_des, Add, Delete, searchBrand, brandSearchHandle, closeDeleteModal, addForm, errors, errorHandle, getGalleries, galleries, URL, currentPage, lastPage, galleryByCategory, pageHandle, getGalleryCategories, galleryCategories, getGalleryCategoryId, selectImage, galleryId, addFiles, gallery, imageUploadModalClose, imageCount, onGallerySearch, search, GalleryImage, setGallery, setImageCount, removeImage  } = BrandContext();
+    const { getAtFirstBrands, page, limit, totalPage, handlePageChange, loading, brands, brandId, name, Image, ImageName, ImageSize, ImageExtention, meta_title, meta_des, Add, Delete, searchBrand, brandSearchHandle, closeDeleteModal, addForm, errors, errorHandle, getGalleries, galleries, URL, currentPage, lastPage, galleryByCategory, pageHandle, getGalleryCategories, galleryCategories, getGalleryCategoryId, selectImage, galleryId, addFiles, gallery, imageUploadModalClose, imageCount, onGallerySearch, search, GalleryImage, setGallery, setImageCount, removeImage  } = BrandContext();
     const [BId, setBId] = useState('');
     useEffect(() => {
         getAtFirstBrands(page, searchBrand);
