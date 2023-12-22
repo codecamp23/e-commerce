@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 const GalleryTable = ({ galleries, imageURL, selectAll, selectedGalleries, handleCheckboxChange, getDetailInfo, imageDownload, handleCopyClick, linkRef, deleteGallery, getGalleryName }) => {
     return (
         <React.Fragment>
-            {galleries.map((gallery) => (
+            {galleries.length > 0 ? galleries.map((gallery) => (
                 <div className="col-lg-2 col-md-3 col-sm-4 col-6" key={gallery.id}>
                     <div className="card card-body position-relative">
                         <img src={`${imageURL}/upload/images/gallery/${gallery.image}`} style={{ widht: "100%", height: "9em" }} alt="..." />
@@ -49,7 +49,9 @@ const GalleryTable = ({ galleries, imageURL, selectAll, selectedGalleries, handl
                         </div>
                     </div>
                 </div>
-            ))}
+            )) : <div className="col-md-12 text-center">
+                <h4>Gallery Not Found</h4>
+            </div>}
         </React.Fragment>
     );
 }

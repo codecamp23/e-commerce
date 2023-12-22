@@ -25,7 +25,7 @@ const Sidebar = () => {
                         <div className="menu-title">Dashboard</div>
                     </Link>
                 </li>
-                <li className={pathname === '/admin/brand' ? 'mm-show' : ''}>
+                <li className={pathname === '/admin/brand' ? 'mm-show' : pathname === '/admin/category-create' ? 'mm-active' : ''}>
                     <a className="has-arrow" role="button" data-bs-toggle="collapse" data-bs-target="#collapse-products" aria-expanded="false">
                         <div className="parent-icon"><i className="bx bx-category"></i>
                         </div>
@@ -37,7 +37,11 @@ const Sidebar = () => {
                                 Brand
                             </Link>
                         </li>
-                        <li> <a href="app-chat-box.html"><i className='bx bx-radio-circle'></i>Chat Box</a>
+                        <li className={pathname === '/admin/category' ? 'mm-active' : pathname === '/admin/category-create' ? 'mm-active' : ''}>
+                            <Link to="/admin/category">
+                                <i className='bx bx-radio-circle'></i>
+                                Category
+                            </Link>
                         </li>
                         <li> <a href="app-file-manager.html"><i className='bx bx-radio-circle'></i>File Manager</a>
                         </li>

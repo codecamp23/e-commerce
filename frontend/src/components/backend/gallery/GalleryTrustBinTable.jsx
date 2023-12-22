@@ -1,10 +1,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-const GalleryTrustBinTable = ({ trustBinGalleries, imageURL, selectAll, selectedGalleries, handleCheckboxChangeTrustBin, getTrustBinDetailInfo, fileImage, deletePermanently }) => {
+const GalleryTrustBinTable = ({ trustBinGalleries, imageURL, selectAll, selectedGalleries, handleCheckboxChangeTrustBin, getTrustBinDetailInfo, fileImage, deletePermanently, getGalleryName }) => {
     return (
         <React.Fragment>
-            {trustBinGalleries.map((gallery) => (
+            {trustBinGalleries.length > 0 ? trustBinGalleries.map((gallery) => (
                 <div className="col-lg-2 col-md-3 col-sm-4 col-6" key={gallery.id}>
                     <div className="card card-body position-relative">
                         <img src={`${imageURL}/upload/images/gallery/${gallery.image}`} style={{ widht: "100%", height: "9em" }} alt="..." />
@@ -37,12 +37,14 @@ const GalleryTrustBinTable = ({ trustBinGalleries, imageURL, selectAll, selected
                         </div>
 
                         <div>
-                            <div className='mt-2'>{gallery.name}</div>
+                            <div className='mt-2'>{getGalleryName(gallery.name)}{gallery.extention}</div>
                             <small>size: {gallery.size}kb</small>
                         </div>
                     </div>
                 </div>
-            ))}
+            )) : <div className="col-md-12 text-center">
+                        <h4>Gallery Trust Bin Not Found</h4>
+            </div>}
         </React.Fragment>
     );
 }
@@ -55,7 +57,8 @@ GalleryTrustBinTable.propTypes = {
     handleCheckboxChangeTrustBin: PropTypes.any, 
     getTrustBinDetailInfo: PropTypes.any, 
     fileImage: PropTypes.any, 
-    deletePermanently: PropTypes.any
+    deletePermanently: PropTypes.any,
+    getGalleryName: PropTypes.any
 }
 
 export default GalleryTrustBinTable;

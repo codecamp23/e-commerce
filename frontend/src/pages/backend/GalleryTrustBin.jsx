@@ -34,6 +34,17 @@ const GalleryTrustBin = () => {
         getTrustBinGalleries(page, search);
     }, []);
 
+
+    const getGalleryName = (name) => {
+        const maxLength = 13;
+        if (name.length <= maxLength) {
+            return name;
+        } else {
+            const truncatedName = name.slice(0, maxLength) + "... ";
+            return truncatedName;
+        }
+    }
+
     return (
         <div className="page-wrapper">
             <div className="page-content">
@@ -49,10 +60,10 @@ const GalleryTrustBin = () => {
                                     <TrustBinAllSelectedArea selectAll={selectAll} handleSelectAllChangeInTrustBin={handleSelectAllChangeInTrustBin} />
                                     <div className="col-md-12 pt-3 pb-2">
                                         <div className="row">
-                                            <GalleryTrustBinTable trustBinGalleries={trustBinGalleries} imageURL={imageURL} selectAll={selectAll} selectedGalleries={selectedGalleries} handleCheckboxChangeTrustBin={handleCheckboxChangeTrustBin} getTrustBinDetailInfo={getTrustBinDetailInfo} fileImage={fileImage} deletePermanently={deletePermanently} />
+                                            <GalleryTrustBinTable trustBinGalleries={trustBinGalleries} imageURL={imageURL} selectAll={selectAll} selectedGalleries={selectedGalleries} handleCheckboxChangeTrustBin={handleCheckboxChangeTrustBin} getTrustBinDetailInfo={getTrustBinDetailInfo} fileImage={fileImage} deletePermanently={deletePermanently} getGalleryName={getGalleryName} />
                                         </div>
                                     </div>
-                                    <Pagination totalPage={trustBinTotalPage} page={page} limit={limit} siblings={1} onPageChange={handleTrustBinPageChange} />
+                                    {trustBinGalleries.length > 0 && <Pagination totalPage={trustBinTotalPage} page={page} limit={limit} siblings={1} onPageChange={handleTrustBinPageChange} />}
                                 </div>
                             </div>
                         </div>

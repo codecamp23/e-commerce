@@ -6,6 +6,7 @@ use App\Exceptions\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
+use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Support\Facades\File;
 
@@ -21,7 +22,13 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->slug = Category::generateSlug($request->name);
         $category->brand_id = $request->brand_id;
-        $category->image = Category::Image($request->hasFile('image'), $request->file('image'), '');
+        $category->image = $request->image;
+        $category->image_name = $request->image_name;
+        $category->image_size = $request->image_size;
+        $category->image_extention = $request->image_extention;
+        //seo
+        $category->meta_title = $request->meta_title;
+        $category->meta_description = $request->meta_description;
         $category->save();
 
         return Response::Out('success', 'Category Created!', '', 200);

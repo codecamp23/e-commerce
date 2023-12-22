@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import PerfectScrollbar from 'perfect-scrollbar';
 import '../../../assets/backend/plugins/vectormap/jquery-jvectormap-2.0.2.css';
@@ -47,41 +47,44 @@ const BrandEdit = () => {
     }
 
     return (
-        <div className="page-wrapper">
-            <div className="page-content">
-                <div className="row">
-                    <div className="col-md-12">
-                        <h5 className="fw-semibold py-2">Brand Information</h5>
-                        <div className="row justify-content-center">
-                            <div className="col-md-7">
-                                <div className="card">
+        <React.Fragment>
+            <div className="page-wrapper">
+                <div className="page-content">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h5 className="fw-semibold py-2">Brand Information</h5>
+                            <div className="row justify-content-center">
+                                <div className="col-md-7">
+                                    <div className="card">
 
-                                    <div className="brand_edit rounded">
-                                        <ul className="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                                            <li className="nav-item" role="presentation">
-                                                <button className="nav-link py-3 rounded-bottom-0 active" id="pills-english-tab" data-bs-toggle="pill" data-bs-target="#pills-english" type="button" role="tab" aria-controls="pills-english" aria-selected="true">English</button>
-                                            </li>
-                                            <li className="nav-item" role="presentation">
-                                                <button className="nav-link py-3 rounded-bottom-0" id="pills-bangla-tab" data-bs-toggle="pill" data-bs-target="#pills-bangla" type="button" role="tab" aria-controls="pills-bangla" aria-selected="false">Bangla</button>
-                                            </li>
-                                        </ul>
-                                        <div className="tab-content" id="pills-tabContent">
-                                            <div className="tab-pane fade show active" id="pills-english" role="tabpanel" aria-labelledby="pills-english-tab" tabIndex={0}>
-                                                <EnEditForm brandId={brandId} name={name} brand={brand} editImageCount={editImageCount} imageCount={imageCount} gallery={gallery} getGalleryName={getGalleryName} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} meta_title={meta_title} meta_des={meta_des} Update={Update} errors={errors} removeImage={removeImage} brandImageRemove={brandImageRemove} />
+                                        <div className="brand_edit rounded">
+                                            <ul className="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                                                <li className="nav-item" role="presentation">
+                                                    <button className="nav-link py-3 rounded-bottom-0 active" id="pills-english-tab" data-bs-toggle="pill" data-bs-target="#pills-english" type="button" role="tab" aria-controls="pills-english" aria-selected="true">English</button>
+                                                </li>
+                                                <li className="nav-item" role="presentation">
+                                                    <button className="nav-link py-3 rounded-bottom-0" id="pills-bangla-tab" data-bs-toggle="pill" data-bs-target="#pills-bangla" type="button" role="tab" aria-controls="pills-bangla" aria-selected="false">Bangla</button>
+                                                </li>
+                                            </ul>
+                                            <div className="tab-content" id="pills-tabContent">
+                                                <div className="tab-pane fade show active" id="pills-english" role="tabpanel" aria-labelledby="pills-english-tab" tabIndex={0}>
+                                                    <EnEditForm brandId={brandId} name={name} brand={brand} editImageCount={editImageCount} imageCount={imageCount} gallery={gallery} getGalleryName={getGalleryName} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} meta_title={meta_title} meta_des={meta_des} Update={Update} errors={errors} removeImage={removeImage} brandImageRemove={brandImageRemove} />
+                                                </div>
+
+                                                <div className="tab-pane fade" id="pills-bangla" role="tabpanel" aria-labelledby="pills-bangla-tab" tabIndex={0}>bangla</div>
                                             </div>
-
-                                            <div className="tab-pane fade" id="pills-bangla" role="tabpanel" aria-labelledby="pills-bangla-tab" tabIndex={0}>bangla</div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-                            <ImageUploader galleryByCategory={galleryByCategory} galleryCategories={galleryCategories} galleries={galleries} selectImage={selectImage} galleryId={galleryId} url={URL} currentPage={currentPage} lastPage={lastPage} pageHandle={pageHandle} imageUploadModalClose={imageUploadModalClose} onGallerySearch={onGallerySearch} setGallery={setGallery} setImageCount={setImageCount} brandImageRemove={brandImageRemove} setGalleryImage={setGalleryImage} GalleryImage={GalleryImage} imageInfoForm={imageInfoForm} />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <ImageUploader galleryByCategory={galleryByCategory} galleryCategories={galleryCategories} galleries={galleries} selectImage={selectImage} galleryId={galleryId} url={URL} currentPage={currentPage} lastPage={lastPage} pageHandle={pageHandle} imageUploadModalClose={imageUploadModalClose} onGallerySearch={onGallerySearch} setGallery={setGallery} setImageCount={setImageCount} brandImageRemove={brandImageRemove} setGalleryImage={setGalleryImage} GalleryImage={GalleryImage} imageInfoForm={imageInfoForm} />
+        </React.Fragment>
     );
 }
 

@@ -91,7 +91,7 @@ const Gallery = () => {
                                             <GalleryTable galleries={galleries} imageURL={imageURL} selectAll={selectAll} selectedGalleries={selectedGalleries} handleCheckboxChange={handleCheckboxChange} getDetailInfo={getDetailInfo} imageDownload={imageDownload} handleCopyClick={handleCopyClick} linkRef={linkRef} deleteGallery={deleteGallery} getGalleryName={getGalleryName} />
                                         </div>
                                     </div>
-                                    <Pagination totalPage={totalPage} page={page} limit={limit} siblings={1} onPageChange={handlePageChange} />
+                                    {galleries.length > 0 && <Pagination totalPage={totalPage} page={page} limit={limit} siblings={1} onPageChange={handlePageChange} />}
                                 </div>
                             </div>
                         </div>

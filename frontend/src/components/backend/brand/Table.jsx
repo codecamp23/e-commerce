@@ -58,7 +58,7 @@ const Table = ({ loading, brands, setBId, totalPage, page, limit, handlePageChan
                         </table>
                     </div>
                     <div className="row">
-                        <Pagination totalPage={totalPage} page={page} limit={limit} siblings={1} onPageChange={handlePageChange} />
+                        {brands.length > 0 && <Pagination totalPage={totalPage} page={page} limit={limit} siblings={1} onPageChange={handlePageChange} />}
                     </div>
                 </div>
             </div>

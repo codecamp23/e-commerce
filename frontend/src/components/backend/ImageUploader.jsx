@@ -27,7 +27,7 @@ const {id} = useParams();
         imageUploadModalClose.current.click();
     }
     return (
-        <div className="modal fade" id="imageUploader" tabIndex="-1">
+        <div className="modal fade" id="imageUploader" tabIndex={-1}>
             <div className="modal-dialog modal-fullscreen modal-dialog-scrollable">
                 <div className="modal-content">
                     <div className="modal-header fs-5 bg-body-tertiary brand">
@@ -106,7 +106,7 @@ const {id} = useParams();
 
 ImageUploader.propTypes = {
     imageUploadModalClose: PropTypes.any,
-    imageInfoForm: PropTypes.any,
+    // imageInfoForm: PropTypes.any,
     galleryByCategory: PropTypes.any,
     galleryCategories: PropTypes.any,
     onGallerySearch: PropTypes.any,
