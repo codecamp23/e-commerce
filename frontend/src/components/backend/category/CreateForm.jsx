@@ -31,7 +31,7 @@ const CreateForm = ({ imageCount, gallery, Image, ImageName, ImageSize, ImageExt
                 <div className="col-md-9">
                     <div className="d-flex" data-bs-toggle="modal" data-bs-target="#imageUploader">
                         <button type="button" className="bg-body-secondary border-0 py-2 px-3 rounded rounded-end-0">Browser</button>
-                        <button type="button" className="bg-light border-0 w-100 py-2 rounded rounded-start-0 text-start ps-3">Choose file</button>
+                        <button type="button" className="bg-light border-0 w-100 py-2 rounded rounded-start-0 text-start ps-3">Choose file {imageCount > 0 ? imageCount : ''}</button>
                     </div>
                     {imageCount > 0 && gallery.image !== '' && <div className="row pt-3">
                         <div className="col-lg-3 col-md-5 col-sm-4 col-6">
