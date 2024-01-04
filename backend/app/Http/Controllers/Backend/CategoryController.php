@@ -18,6 +18,7 @@ class CategoryController extends Controller
     }
     function store(StoreRequest $request)
     {
+        // return $request->all();
         $category = new Category();
         $category->name = $request->name;
         $category->slug = Category::generateSlug($request->name);
@@ -28,7 +29,7 @@ class CategoryController extends Controller
         $category->image_extention = $request->image_extention;
         //seo
         $category->meta_title = $request->meta_title;
-        $category->meta_description = $request->meta_description;
+        $category->meta_des = $request->meta_des;
         $category->save();
 
         return Response::Out('success', 'Category Created!', '', 200);

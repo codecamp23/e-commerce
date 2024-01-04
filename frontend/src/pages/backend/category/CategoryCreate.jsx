@@ -5,7 +5,7 @@ import ImageUploader from "../../../components/backend/ImageUploader";
 import PerfectScrollbar from "perfect-scrollbar";
 
 const CategoryCreate = () => {
-    const { /*this methods for gallery start*/ getGalleries, gallery, getGalleryCategories, getGalleryCategoryId, search, galleryByCategory, galleryCategories, galleries, selectImage, galleryId, URL, currentPage, lastPage, pageHandle, imageUploadModalClose, onGallerySearch, setGallery, setImageCount, imageCount, removeImage, setGalleryImage, GalleryImage, Image, ImageName, ImageSize, ImageExtention, /*this methods for gallery end*/ getBrands, brands, Name, BrandId, MetaTitle, MetaDes, AddData } = CategoryContext();
+    const { /*this methods for gallery start*/ getGalleries, gallery, getGalleryCategories, getGalleryCategoryId, search, galleryByCategory, galleryCategories, galleries, selectImage, galleryId, URL, currentPage, lastPage, pageHandle, imageUploadModalClose, onGallerySearch, setGallery, setImageCount, imageCount, removeImage, setGalleryImage, GalleryImage, Image, ImageName, ImageSize, ImageExtention, /*this methods for gallery end*/ getBrands, brands, Name, BrandId, MetaTitle, MetaDes, AddData, errors } = CategoryContext();
     useEffect(() => {
         new PerfectScrollbar(".app-container")
         // this function for gallery start
@@ -24,7 +24,7 @@ const CategoryCreate = () => {
                                 <div className='border border-top-0 border-end-0 border-start-0 border-bottom-2 border-light py-2 px-4 d-flex justify-content-between align-items-center'>
                                     <span className="fs-5 fw-normal">Category Information</span>
                                 </div>
-                                <CreateForm /*this methods for gallery start*/ imageCount={imageCount} gallery={gallery} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} removeImage={removeImage}  /*this methods for gallery end*/ brands={brands} Name={Name} BrandId={BrandId} MetaTitle={MetaTitle} MetaDes={MetaDes} AddData={AddData} />
+                                <CreateForm /*this methods for gallery start*/ imageCount={imageCount} gallery={gallery} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} removeImage={removeImage}  /*this methods for gallery end*/ brands={brands} Name={Name} BrandId={BrandId} MetaTitle={MetaTitle} MetaDes={MetaDes} AddData={AddData} errors={errors} />
                             </div>
                         </div>
                     </div>

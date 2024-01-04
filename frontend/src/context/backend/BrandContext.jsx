@@ -114,7 +114,7 @@ const BrandContext = () => {
     // brand crud ===>
     const getAtFirstBrands = async (Page, Search) => {
         const response = await axiosClient.get(`/brand-get?search=${Search}`);
-        console.log(response);
+        // console.log(response);
         setTotalPage(Math.ceil(response.data.data.brands.length / limit));
         getBrands(Page, limit, response.data.data.brands);
         setLoading(true)

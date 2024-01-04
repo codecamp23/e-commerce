@@ -26,12 +26,12 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li className={pathname === '/admin/brand' ? 'mm-show' : pathname === '/admin/category-create' ? 'mm-active' : ''}>
-                    <a className="has-arrow" role="button" data-bs-toggle="collapse" data-bs-target="#collapse-products" aria-expanded="false">
+                    <a href="javascript:;" className="has-arrow">
                         <div className="parent-icon"><i className="bx bx-category"></i>
                         </div>
                         <div className="menu-title">Products</div>
                     </a>
-                    <ul className="collapse" id="collapse-products">
+                    <ul>
                         <li className={pathname === '/admin/brand' ? 'mm-active' : ''}>
                             <Link to="/admin/brand"><i className='bx bx-radio-circle'></i>
                                 Brand

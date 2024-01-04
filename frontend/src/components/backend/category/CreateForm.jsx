@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 
-const CreateForm = ({ imageCount, gallery, Image, ImageName, ImageSize, ImageExtention, removeImage, brands, Name, BrandId, MetaTitle, MetaDes, AddData }) => {
+const CreateForm = ({ imageCount, gallery, Image, ImageName, ImageSize, ImageExtention, removeImage, brands, Name, BrandId, MetaTitle, MetaDes, AddData, errors }) => {
     const getGalleryName = (name) => {
         const maxLength = 3;
         if (name.length <= maxLength) {
@@ -16,14 +16,16 @@ const CreateForm = ({ imageCount, gallery, Image, ImageName, ImageSize, ImageExt
                 <div className="col-md-3">Name</div>
                 <div className="col-md-9">
                     <input type="text" ref={Name} className='form-control' placeholder='Name' />
+                    {errors.name && <small className='text-danger ps-2'>{errors.name}</small>}
                 </div>
             </div>
             <div className="row pb-3">
                 <div className="col-md-3">Brand</div>
                 <div className="col-md-9">
-                    <select key={BrandId} className="form-control">
-                        {brands.length > 0 && brands.map((brand, index) => (<option key={index + 1} value={brand.id}>{brand.name}</option>))}
+                    <select ref={BrandId} className="form-control">
+                        {brands.length > 0 && brands.map((brand) => (<option key={brand.id} value={brand.id}>{brand.name}</option>))}
                     </select>
+                    {errors.brand_id && <small className='text-danger ps-2'>{errors.brand_id}</small>}
                 </div>
             </div>
             <div className="row pb-3">
@@ -52,19 +54,22 @@ const CreateForm = ({ imageCount, gallery, Image, ImageName, ImageSize, ImageExt
                     <input type="hidden" ref={Image} defaultValue={imageCount > 0 ? gallery.image : ''} />
                     <input type="hidden" ref={ImageName} defaultValue={imageCount > 0 ? gallery.image_name : ''} />
                     <input type="hidden" ref={ImageSize} defaultValue={imageCount > 0 ? gallery.image_size : ''} />
-                    <input type="hidden" ref={ImageExtention} defaultValue={imageCount > 0 ? gallery.image_extention : ''} />
+                    <input type="hidden" ref={ImageExtention} defaultValue={imageCount > 0 ? gallery.image_extention : ''} />   
+                    {errors.image && <small className='text-danger ps-2'>{errors.image}</small>}
                 </div>
             </div>
             <div className="row pb-3">
                 <div className="col-md-3">Meta Title</div>
                 <div className="col-md-9">
                     <input type="text" ref={MetaTitle} className='form-control' placeholder='Meta Title' />
+                    {errors.meta_title && <small className='text-danger ps-2'>{errors.meta_title}</small>}
                 </div>
             </div>
             <div className="row pb-3">
                 <div className="col-md-3">Meta Description</div>
                 <div className="col-md-9">
                     <textarea ref={MetaDes} className="form-control" rows="6"></textarea>
+                    {errors.meta_des && <small className='text-danger ps-2'>{errors.meta_des}</small>}
                 </div>
             </div>
             <div className="text-end pt-1 pb-2">
@@ -84,10 +89,11 @@ CreateForm.propTypes = {
     removeImage: PropTypes.any,
     brands: PropTypes.any,
     Name: PropTypes.any, 
-    BrandId: PropTypes.any, 
+    BrandId: PropTypes.any,
     MetaTitle: PropTypes.any, 
     MetaDes: PropTypes.any,
     AddData: PropTypes.any,
+    errors: PropTypes.any,
 }
 
 export default CreateForm;

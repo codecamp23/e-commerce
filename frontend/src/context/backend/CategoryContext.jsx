@@ -1,7 +1,10 @@
 import { useRef, useState } from "react";
 import axiosClient from "../../axios-client";
+import useNotify from './../../notify';
+import { useNavigate } from "react-router-dom";
 
 const CategoryContext = () => {
+    const {successMsg} = useNotify();
     // gallery image uploader start
     const [galleries, setGalleries] = useState([]);
     const [URL, setURL] = useState('');
@@ -31,13 +34,15 @@ const CategoryContext = () => {
     // category's work start
     const [brands, setBrands] = useState([]);
     const Name = useRef();
-    const BrandId = useRef();
+    const BrandId = useRef(null);
     const Image = useRef();
     const ImageName = useRef();
     const ImageSize = useRef();
     const ImageExtention = useRef();
     const MetaTitle = useRef();
     const MetaDes = useRef();
+    const novigate = useNavigate("");
+    const [errors, setErrors] = useState([]);
     // category's work end
 
 
@@ -97,17 +102,29 @@ const CategoryContext = () => {
         const response = await axiosClient.get('/brand-get');
         setBrands(response.data.data.brands);
     }
-    const AddData = (e) => {
+    const AddData = async (e) => {
         e.preventDefault();
-        const payload = {
-            name: Name.current.value,
-            brand_id: BrandId.current.value,
-            image: Image.current.value,
-            image_name: ImageName.current.value,
-            image_size: ImageSize.current.value,
-            image_extention: ImageExtention.current.value,
+        try {
+            const payload = {
+                name: Name.current.value,
+                brand_id: BrandId.current.value,
+                image: Image.current.value,
+                image_name: ImageName.current.value,
+                image_size: ImageSize.current.value,
+                image_extention: ImageExtention.current.value,
+                meta_title: MetaTitle.current.value,
+                meta_des: MetaDes.current.value,
+            }
+            // console.log(payload);
+            const response = await axiosClient.post(`/category-store`, payload)
+            console.log(response);
+            if (response.data.status === 'success') {
+                successMsg(response.data.message);
+                novigate("/admin/category")
+            }
+        } catch (error) {
+            setErrors(error.response.data.errors);
         }
-        console.log(payload)
     }
     // category's work end
 
@@ -149,7 +166,8 @@ const CategoryContext = () => {
         BrandId,
         MetaTitle,
         MetaDes,
-        AddData
+        AddData,
+        errors
     }
 }
 

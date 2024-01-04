@@ -15,15 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->unsignedBigInteger('brand_id');
             $table->string('type')->nullable();
             $table->string('parent_category')->nullable();
             $table->string('ordering_number')->nullable();
             $table->string('banner')->nullable();
             $table->string('icon')->nullable();
-            $table->string('cover_image')->nullable();
+            $table->string('image')->nullable();
+            $table->string('image_name')->nullable();
+            $table->string('image_size')->nullable();
+            $table->string('image_extention')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('brand_id');
+            
             $table->foreign('brand_id')->references('id')->on('brands')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
