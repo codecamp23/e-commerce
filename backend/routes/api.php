@@ -47,6 +47,7 @@ Route::get('/brand-delete/{id}', [BrandController::class, 'destroy']);
 // category api routes
 Route::get('/category-get', [CategoryController::class, 'get']);
 Route::post('/category-store', [CategoryController::class, 'store']);
+Route::get('/change-category-status/{id}', [CategoryController::class, 'changeCategoryStatus']);
 Route::get('/category-edit/{id}', [CategoryController::class, 'edit']);
 Route::post('/category-update/{id}', [CategoryController::class, 'update']);
 Route::get('/category-delete/{id}', [CategoryController::class, 'destroy']);

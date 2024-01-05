@@ -34,6 +34,19 @@ class CategoryController extends Controller
 
         return Response::Out('success', 'Category Created!', '', 200);
     }
+    function changeCategoryStatus($id)
+    {
+        $category = Category::findOrFail(intval($id));
+        if ($category->status == "active") {
+            $category->status = "inactive";
+            $category->save();
+            return Response::Out('success', 'Category Inactive!', '', 200);
+        }else{
+            $category->status = "active";
+            $category->save();
+            return Response::Out('success', 'Category Active!', '', 200);
+        }
+    }
     function edit($id)
     {
         return Category::getBrandById($id);
@@ -57,11 +70,6 @@ class CategoryController extends Controller
     function destroy($id)
     {
         $categories = Category::getBrandById($id);
-        $file_path = public_path() . '/upload/images/categories/' . $categories->image;
-
-        if (File::exists($file_path)) {
-            File::delete($file_path);
-        }
         $categories->delete();
 
         return Response::Out('success', 'Category Deleted!', '', 200);

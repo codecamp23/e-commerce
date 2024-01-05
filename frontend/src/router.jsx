@@ -16,6 +16,7 @@ import GalleryTrustBin from './pages/backend/GalleryTrustBin';
 import BrandEdit from './pages/backend/brand/BrandEdit';
 import Category from './pages/backend/category/Category';
 import CategoryCreate from './pages/backend/category/CategoryCreate';
+import CategoryEdit from './pages/backend/category/CategoryEdit';
 
 const Router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/category',
                 element: <Category />
+            },
+            {
+                path: '/admin/category-edit/:id',
+                element: <CategoryEdit />
             },
             {
                 path: '/admin/category-create',

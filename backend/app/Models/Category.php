@@ -28,23 +28,23 @@ class Category extends Model
         return $slug;
     }
 
-    public static function Image($hasFileImage, $fileImage, $categoryImage)
-    {
-        if ($hasFileImage) {
-            $file_path = public_path() . '/upload/images/categories/' . $categoryImage;
+    // public static function Image($hasFileImage, $fileImage, $categoryImage)
+    // {
+    //     if ($hasFileImage) {
+    //         $file_path = public_path() . '/upload/images/categories/' . $categoryImage;
 
-            if (File::exists($file_path)) {
-                File::delete($file_path);
-            }
-            $file = $fileImage;
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '-category-' . $extension;
-            $file->move('upload/images/categories/', $filename);
-            return $filename;
-        }else{
-            return null;
-        }
-    }
+    //         if (File::exists($file_path)) {
+    //             File::delete($file_path);
+    //         }
+    //         $file = $fileImage;
+    //         $extension = $file->getClientOriginalName();
+    //         $filename = time() . '-category-' . $extension;
+    //         $file->move('upload/images/categories/', $filename);
+    //         return $filename;
+    //     }else{
+    //         return null;
+    //     }
+    // }
     public static function getBrandById($id)
     {
         return Category::findOrFail(intval($id));

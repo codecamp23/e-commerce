@@ -43,6 +43,12 @@ const CategoryContext = () => {
     const MetaDes = useRef();
     const novigate = useNavigate("");
     const [errors, setErrors] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [totalPage, setTotalPage] = useState(null);
+    const [limit] = useState(5);
+    const [page, setPage] = useState(1);
+    const [categories, setCategories] = useState([]);
+    const [categoriesLength, setCategoriesLength] = useState(0);
     // category's work end
 
 
@@ -126,6 +132,59 @@ const CategoryContext = () => {
             setErrors(error.response.data.errors);
         }
     }
+    const getAtFirstCategories = async (Page) => {
+        setLoading(true);
+        const response = await axiosClient.get(`/category-get`);
+        console.log(response.data);
+        setCategoriesLength(response.data.length);
+        setTotalPage(Math.ceil(response.data.length / limit));
+        getCategories(Page, limit, response.data);
+        setLoading(false);
+    }
+    const getCategories = async (Page, Limit, Categories) => {
+        let array = [];
+        for (var i = (Page - 1) * Limit; i < (Page * Limit) && Categories[i]; i++) {
+            array.push(Categories[i]);
+        }
+        setCategories(array);
+    }
+    const handlePageChange = (value) => {
+        if (value === "... ") {
+            setPage(1);
+            getAtFirstCategories(1)
+        } else if (value === "&lsaquo;") {
+            if (page !== 1) {
+                setPage(page - 1);
+                getAtFirstCategories(page - 1)
+            }
+        } else if (value === "&rsaquo;") {
+            if (page !== totalPage) {
+                setPage(page + 1);
+                getAtFirstCategories(page + 1)
+            }
+        } else if (value === " ...") {
+            setPage(totalPage);
+            getAtFirstCategories(totalPage)
+        } else {
+            setPage(value);
+            getAtFirstCategories(value)
+        }
+    }
+    const categoryStatusChange = async (id) => {
+        const response = await axiosClient.get(`/change-category-status/${id}`);
+        if (response.data.status === 'success') {
+            successMsg(response.data.message);
+            getAtFirstCategories(page)
+        }
+    }
+    const deleteData = async (id) => {
+        const response = await axiosClient.get(`/category-delete/${id}`);
+        console.log(response);
+        if (response.data.status === 'success') {
+            successMsg(response.data.message);
+            getAtFirstCategories(page);
+        }
+    }
     // category's work end
 
     return {
@@ -167,7 +226,17 @@ const CategoryContext = () => {
         MetaTitle,
         MetaDes,
         AddData,
-        errors
+        errors,
+        getAtFirstCategories,
+        loading,
+        categoriesLength,
+        categories,
+        page,
+        limit,
+        totalPage,
+        handlePageChange,
+        categoryStatusChange,
+        deleteData
     }
 }
 
