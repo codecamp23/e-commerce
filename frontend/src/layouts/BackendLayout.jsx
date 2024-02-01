@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
+import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import { Navigate, Outlet } from 'react-router-dom';
+import PerfectScrollbar from 'perfect-scrollbar';
 import Header from './partials/backend/Header';
-import App from '../App';
 import { useStateContext } from '../context/ContextProvider';
 import Sidebar from './partials/backend/Sidebar';
 import { ToastContainer } from 'react-toastify';
@@ -9,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 const BackendLayout = () => {
     const { user, token } = useStateContext();
     useEffect(() => {
-        App();
+        new PerfectScrollbar(".app-container")
     }, []);
 
     if (!token) {

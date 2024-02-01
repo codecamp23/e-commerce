@@ -43,6 +43,24 @@ const Sidebar = () => {
                                 Category
                             </Link>
                         </li>
+                        <li className={pathname === '/admin/colors' ? 'mm-active' : pathname === '/admin/colors' ? 'mm-active' : ''}>
+                            <Link to="/admin/colors">
+                                <i className='bx bx-radio-circle'></i>
+                                Colors
+                            </Link>
+                        </li>
+                        {/* <li className={pathname === '/admin/sizes' ? 'mm-active' : pathname === '/admin/sizes' ? 'mm-active' : ''}>
+                            <Link to="/admin/sizes">
+                                <i className='bx bx-radio-circle'></i>
+                                Sizes
+                            </Link>
+                        </li> */}
+                        <li className={pathname === '/admin/product-create' ? 'mm-active' : pathname === '/admin/product-create' ? 'mm-active' : ''}>
+                            <Link to="/admin/product-create">
+                                <i className='bx bx-radio-circle'></i>
+                                Add New Product
+                            </Link>
+                        </li>
                         <li> <a href="app-file-manager.html"><i className='bx bx-radio-circle'></i>File Manager</a>
                         </li>
                         <li> <a href="app-contact-list.html"><i className='bx bx-radio-circle'></i>Contatcs</a>

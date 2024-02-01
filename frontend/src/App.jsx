@@ -21,7 +21,6 @@ const App = () => {
         // import('./assets/backend/plugins/vectormap/jquery-jvectormap-world-mill-en.js');
         // import('./assets/backend/plugins/chartjs/js/chart.js');
         // import('./assets/backend/js/index.js');
-        import('./assets/backend/js/app.js');
     } else if (window.location.pathname === '/login' || window.location.pathname === '/register' || window.location.pathname === '/forget-password' || window.location.pathname === '/reset-password/23hkjHJH21') {
         // import('./assets/backend/plugins/perfect-scrollbar/css/perfect-scrollbar.css');
         // import('./assets/backend/css/bootstrap.min.css');

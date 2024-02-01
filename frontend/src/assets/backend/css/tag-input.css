@@ -1,0 +1,19 @@
+.ReactTags__selected
+{
+    border: 2px dashed gray;
+    border-radius: 10px;
+    padding: .5rem 1rem;
+    margin: 0 0 .5rem 0;
+}
+.ReactTags__selected .ReactTags__tag
+{
+    margin: 0 1rem 0 0;
+}
+.ReactTags__selected .ReactTags__tag .ReactTags__remove
+{
+    margin: 0 0 0 .2rem;
+    border: none;
+    border-radius: 100%;
+    padding: 0 .4rem;
+    color: crimson;
+}

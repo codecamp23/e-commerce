@@ -2,12 +2,10 @@ import React, { useEffect } from "react";
 import CreateForm from "../../../components/backend/category/CreateForm";
 import CategoryContext from './../../../context/backend/CategoryContext';
 import ImageUploader from "../../../components/backend/ImageUploader";
-import PerfectScrollbar from "perfect-scrollbar";
 
 const CategoryCreate = () => {
     const { /*this methods for gallery start*/ getGalleries, gallery, getGalleryCategories, getGalleryCategoryId, search, galleryByCategory, galleryCategories, galleries, selectImage, galleryId, URL, currentPage, lastPage, pageHandle, imageUploadModalClose, onGallerySearch, setGallery, setImageCount, imageCount, removeImage, setGalleryImage, GalleryImage, Image, ImageName, ImageSize, ImageExtention, /*this methods for gallery end*/ getBrands, brands, Name, BrandId, MetaTitle, MetaDes, AddData, errors } = CategoryContext();
     useEffect(() => {
-        new PerfectScrollbar(".app-container")
         // this function for gallery start
         getGalleries(currentPage, getGalleryCategoryId, search);
         getGalleryCategories();

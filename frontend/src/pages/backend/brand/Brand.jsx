@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import demo from '../../../assets/backend/images/demo.png';
-import 'perfect-scrollbar/css/perfect-scrollbar.css';
-import PerfectScrollbar from 'perfect-scrollbar';
 import '../../../assets/backend/plugins/vectormap/jquery-jvectormap-2.0.2.css';
 import '../../../assets/backend/plugins/simplebar/css/simplebar.css';
 import '../../../assets/backend/plugins/metismenu/css/metisMenu.min.css';
@@ -24,6 +22,7 @@ import Table from './../../../components/backend/brand/Table.jsx';
 import AddForm from './../../../components/backend/brand/AddForm.jsx';
 import ImageUploader from '../../../components/backend/ImageUploader.jsx';
 import DeleteModal from '../../../components/backend/DeleteModal.jsx';
+import PageTitle from '../../../components/backend/PageTitle.jsx';
 
 const Brand = () => {
     const { getAtFirstBrands, page, limit, totalPage, handlePageChange, loading, brands, brandId, name, Image, ImageName, ImageSize, ImageExtention, meta_title, meta_des, Add, Delete, searchBrand, brandSearchHandle, closeDeleteModal, addForm, errors, errorHandle, getGalleries, galleries, URL, currentPage, lastPage, galleryByCategory, pageHandle, getGalleryCategories, galleryCategories, getGalleryCategoryId, selectImage, galleryId, addFiles, gallery, imageUploadModalClose, imageCount, onGallerySearch, search, GalleryImage, setGallery, setImageCount, removeImage  } = BrandContext();
@@ -32,8 +31,6 @@ const Brand = () => {
         getAtFirstBrands(page, searchBrand);
         getGalleries(currentPage, getGalleryCategoryId, search);
         getGalleryCategories()
-        
-        new PerfectScrollbar(".app-container")
     }, [])
     
     return (
@@ -41,7 +38,7 @@ const Brand = () => {
             <div className="page-content">
                 <div className="row">
                     <div className="col-md-12">
-                        <h5 className="fw-semibold py-2">All Brands</h5>
+                        <PageTitle pageTitle={'All Brands'} />
                         <div className="row">
                             <Table loading={loading} brands={brands} setBId={setBId} page={page} limit={limit} totalPage={totalPage} handlePageChange={handlePageChange} brandSearchHandle={brandSearchHandle} />
                             <AddForm addForm={addForm} demo={demo} gallery={gallery} imageCount={imageCount} name={name} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} meta_title={meta_title} meta_des={meta_des} Add={Add} errors={errors} errorHandle={errorHandle} setGallery={setGallery} setImageCount={setImageCount} removeImage={removeImage}  />

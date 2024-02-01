@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('gallery_category_id');
             $table->string('name');
             $table->string('image');
+            $table->string('extention');
             $table->string('file_type');
             $table->string('size');
             $table->foreign('gallery_category_id')->references('id')->on('gallery_categories')

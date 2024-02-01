@@ -85,7 +85,7 @@ const GalleryContext = () => {
             formData.append('gallery_category_id', gallery_category_id.current.value);
             formData.append('image', image.current.files[0]);
             const response = await axiosClient.post('/gallery-store', formData);
-            // console.log(response);
+            console.log(response);
             if (response.data.status === 'success') {
                 await getAtFirstGalleries(page, galleryCategoryId, search);
                 closeAddForm.current.click();
@@ -93,6 +93,7 @@ const GalleryContext = () => {
                 successMsg(response.data.message)
             }
         } catch (error) {
+            console.log(error);
             setErrors(error.response.data.errors);
             setNameErrorsHandle(true);
             setImageErrorsHandle(true);

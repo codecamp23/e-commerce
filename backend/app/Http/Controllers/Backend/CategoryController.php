@@ -6,15 +6,20 @@ use App\Exceptions\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
-use App\Models\Brand;
 use App\Models\Category;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    function get()
+    function get(Request $request)
     {
-        return Category::latest()->get();
+        $search = $request->search;
+        if ($search != '') {
+            $category = Category::where('name', 'like', '%' . $search . '%')->latest()->get();
+        } else {
+            $category = Category::latest()->get();
+        }
+        return $category;
     }
     function store(StoreRequest $request)
     {
@@ -41,7 +46,7 @@ class CategoryController extends Controller
             $category->status = "inactive";
             $category->save();
             return Response::Out('success', 'Category Inactive!', '', 200);
-        }else{
+        } else {
             $category->status = "active";
             $category->save();
             return Response::Out('success', 'Category Active!', '', 200);
@@ -59,10 +64,13 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->slug = $slug;
         $category->brand_id = $request->brand_id;
-        $imageName = Category::Image($request->hasFile('image'), $request->file('image'), $category->image);
-        if ($imageName != null) {
-            $category->image = $imageName;
-        }
+        $category->image = $request->image;
+        $category->image_name = $request->image_name;
+        $category->image_size = $request->image_size;
+        $category->image_extention = $request->image_extention;
+        //seo
+        $category->meta_title = $request->meta_title;
+        $category->meta_des = $request->meta_des;
         $category->update();
 
         return Response::Out('success', 'Category Updated!', '', 200);

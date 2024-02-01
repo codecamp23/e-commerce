@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->unsignedBigInteger('brand_id');
             $table->string('type')->nullable();
             $table->string('parent_category')->nullable();
@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('image_size')->nullable();
             $table->string('image_extention')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->string('image')->nullable();
             
             $table->foreign('brand_id')->references('id')->on('brands')
             ->cascadeOnDelete()

@@ -21,20 +21,38 @@ class ProductController extends Controller
         $product = new Product();
         $product->name = $request->name;
         $product->slug = Product::generateSlug($request->name);
-        $product->brand_id = $request->brand_id;
-
+        $product->brand_id = $request->brand_id; 
         $product->category_id = $request->category_id;
         $product->unit = $request->unit;
         $product->price = $request->price;
+        $product->purchase_qty = $request->purchase_qty;
+        $product->weight = $request->weight;
+        $product->barcode = $request->barcode;
+        $product->color_id = $request->color_id;
+        $product->measurement_points = $request->measurement_points;
+        $product->size = $request->size;
+        $product->measurement_type = $request->measurement_type;
         $product->discount = $request->discount;
         $product->discount_price = $request->discount_price;
         $product->offer = $request->offer;
+        $product->remark = $request->remark;
         $product->description = $request->description;
         $product->refundable = $request->refundable;
-        $product->meta_tag = $request->meta_tag;
+        $product->status = $request->status;
+        // image name, size, extention
+        $product->image = $request->image;
+        $product->image_name = $request->image_name;
+        $product->image_size = $request->image_size;
+        $product->image_extention = $request->image_extention;
+        // vat & tax
+        $product->vat = $request->vat;
+        $product->vat_status = $request->vat_status;
+        $product->tax = $request->tax;
+        $product->tax_status = $request->tax_status;
+        // seo
+        $product->meta_tag = $request->tags;
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
-        $product->image = Product::Image($request->hasFile('image'), $request->file('image'), '');
         $product->save();
 
         return Response::Out('success', 'Product Created!', '', 200);

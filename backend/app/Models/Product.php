@@ -11,21 +11,38 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'brand_id',
-        'category_id',
         'name',
         'slug',
+        'brand_id',
+        'category_id',
         'unit',
         'price',
+        'purchase_qty',
+        'weight',
+        'barcode',
+        'tags',
+        'color_id',
+        'measurement_points',
+        'size',
+        'measurement_type',
         'discount',
         'discount_price',
         'offer',
+        'remark',
         'description',
         'refundable',
+        'status',
         'image',
+        'image_name',
+        'image_size',
+        'image_extention',
+        'vat',
+        'vat_status',
+        'tax',
+        'tax_status',
         'meta_tag',
         'meta_title',
-        'meta_description'
+        'meta_description',
     ];
 
     public static function generateSlug($name)
@@ -38,25 +55,6 @@ class Product extends Model
             $slug = Str::slug($name);
         }
         return $slug;
-    }
-
-    public static function Image($hasFileImage, $fileImage, $productImage)
-    {
-        return $productImage;
-        if ($hasFileImage) {
-            $file_path = public_path() . '/upload/images/products/' . $productImage;
-
-            if (File::exists($file_path)) {
-                File::delete($file_path);
-            }
-            $file = $fileImage;
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '-product-' . $extension;
-            $file->move('upload/images/products/', $filename);
-            return $filename;
-        }else{
-            return null;
-        }
     }
     public static function getBrandById($id)
     {

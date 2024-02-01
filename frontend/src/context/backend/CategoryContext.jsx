@@ -41,7 +41,7 @@ const CategoryContext = () => {
     const ImageExtention = useRef();
     const MetaTitle = useRef();
     const MetaDes = useRef();
-    const novigate = useNavigate("");
+    const navigate = useNavigate("");
     const [errors, setErrors] = useState([]);
     const [loading, setLoading] = useState(false);
     const [totalPage, setTotalPage] = useState(null);
@@ -49,6 +49,9 @@ const CategoryContext = () => {
     const [page, setPage] = useState(1);
     const [categories, setCategories] = useState([]);
     const [categoriesLength, setCategoriesLength] = useState(0);
+    const [category, setCategory] = useState({});
+    const [categorySearch, setCategorySearch] = useState('');
+    const [categoryId, setCategoryId] = useState(null);
     // category's work end
 
 
@@ -126,16 +129,16 @@ const CategoryContext = () => {
             console.log(response);
             if (response.data.status === 'success') {
                 successMsg(response.data.message);
-                novigate("/admin/category")
+                navigate("/admin/category")
             }
         } catch (error) {
             setErrors(error.response.data.errors);
         }
     }
-    const getAtFirstCategories = async (Page) => {
+    const getAtFirstCategories = async (Page, Search) => {
         setLoading(true);
-        const response = await axiosClient.get(`/category-get`);
-        console.log(response.data);
+        const response = await axiosClient.get(`/category-get?search=${Search}`);
+        // console.log(response.data);
         setCategoriesLength(response.data.length);
         setTotalPage(Math.ceil(response.data.length / limit));
         getCategories(Page, limit, response.data);
@@ -148,41 +151,75 @@ const CategoryContext = () => {
         }
         setCategories(array);
     }
+    const searchCategory = (e) => {
+        setCategorySearch(e.target.value)
+        getAtFirstCategories(page, e.target.value);
+    }
     const handlePageChange = (value) => {
         if (value === "... ") {
             setPage(1);
-            getAtFirstCategories(1)
+            getAtFirstCategories(1, categorySearch)
         } else if (value === "&lsaquo;") {
             if (page !== 1) {
                 setPage(page - 1);
-                getAtFirstCategories(page - 1)
+                getAtFirstCategories(page - 1, categorySearch)
             }
         } else if (value === "&rsaquo;") {
             if (page !== totalPage) {
                 setPage(page + 1);
-                getAtFirstCategories(page + 1)
+                getAtFirstCategories(page + 1, categorySearch)
             }
         } else if (value === " ...") {
             setPage(totalPage);
-            getAtFirstCategories(totalPage)
+            getAtFirstCategories(totalPage, categorySearch)
         } else {
             setPage(value);
-            getAtFirstCategories(value)
+            getAtFirstCategories(value, categorySearch)
         }
     }
     const categoryStatusChange = async (id) => {
         const response = await axiosClient.get(`/change-category-status/${id}`);
         if (response.data.status === 'success') {
             successMsg(response.data.message);
-            getAtFirstCategories(page)
+            getAtFirstCategories(page, search)
+        }
+    }
+    const getCategory = async (id) => {
+        const response = await axiosClient.get(`/category-edit/${id}`);
+        setCategory(response.data);
+        if (response.data.image) {
+            setEditImageCount(1)
+        }
+    }
+    const categoryImageRemove = () => {
+        setEditImageCount(0)
+    }
+    const dataUpdate = async (id) => {
+        try {
+            const payload = {
+                name: Name.current.value,
+                brand_id: BrandId.current.value,
+                image: Image.current.value,
+                image_name: ImageName.current.value,
+                image_size: ImageSize.current.value,
+                image_extention: ImageExtention.current.value,
+                meta_title: MetaTitle.current.value,
+                meta_des: MetaDes.current.value,
+            }
+            const response = await axiosClient.post(`/category-update/${id}`, payload);
+            if (response.data.status === 'success') {
+                successMsg(response.data.message);
+                navigate("/admin/category")
+            }
+        } catch (error) {
+            setErrors(error.response.data.errors);
         }
     }
     const deleteData = async (id) => {
         const response = await axiosClient.get(`/category-delete/${id}`);
-        console.log(response);
         if (response.data.status === 'success') {
             successMsg(response.data.message);
-            getAtFirstCategories(page);
+            getAtFirstCategories(page, categorySearch);
         }
     }
     // category's work end
@@ -236,7 +273,14 @@ const CategoryContext = () => {
         totalPage,
         handlePageChange,
         categoryStatusChange,
-        deleteData
+        getCategory,
+        category,
+        deleteData,
+        searchCategory,
+        categorySearch,
+        categoryId,
+        categoryImageRemove,
+        dataUpdate
     }
 }
 

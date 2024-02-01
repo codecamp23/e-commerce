@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 
-const CreateForm = ({ imageCount, gallery, Image, ImageName, ImageSize, ImageExtention, removeImage, brands, Name, BrandId, MetaTitle, MetaDes, AddData, errors }) => {
+const CreateForm = ({ /* that's for gallery start */ imageCount, gallery, Image, ImageName, ImageSize, ImageExtention, removeImage, /* that's for gallery end */ brands, Name, BrandId, MetaTitle, MetaDes, AddData, errors }) => {
     const getGalleryName = (name) => {
         const maxLength = 3;
         if (name.length <= maxLength) {
@@ -80,6 +80,7 @@ const CreateForm = ({ imageCount, gallery, Image, ImageName, ImageSize, ImageExt
 }
 
 CreateForm.propTypes = {
+    /* that's for gallery start */
     imageCount: PropTypes.any, 
     gallery: PropTypes.any, 
     Image: PropTypes.any, 
@@ -87,6 +88,7 @@ CreateForm.propTypes = {
     ImageSize: PropTypes.any, 
     ImageExtention: PropTypes.any,
     removeImage: PropTypes.any,
+    /* that's for gallery end */
     brands: PropTypes.any,
     Name: PropTypes.any, 
     BrandId: PropTypes.any,

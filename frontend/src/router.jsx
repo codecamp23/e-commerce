@@ -17,6 +17,11 @@ import BrandEdit from './pages/backend/brand/BrandEdit';
 import Category from './pages/backend/category/Category';
 import CategoryCreate from './pages/backend/category/CategoryCreate';
 import CategoryEdit from './pages/backend/category/CategoryEdit';
+import AddProduct from './pages/backend/product/AddProduct';
+import Color from './pages/backend/color/Color';
+import ColorEdit from './pages/backend/color/ColorEdit';
+import Size from './pages/backend/size/Size';
+import SizeCreate from './pages/backend/size/SizeCreate';
 
 const Router = createBrowserRouter([
     {
@@ -65,6 +70,10 @@ const Router = createBrowserRouter([
                 element: <BrandEdit />
             },
             {
+                path: '/admin/category-create',
+                element: <CategoryCreate />
+            },
+            {
                 path: '/admin/category',
                 element: <Category />
             },
@@ -73,8 +82,16 @@ const Router = createBrowserRouter([
                 element: <CategoryEdit />
             },
             {
-                path: '/admin/category-create',
-                element: <CategoryCreate />
+                path: '/admin/colors',
+                element: <Color />
+            },
+            {
+                path: '/admin/color/:id',
+                element: <ColorEdit />
+            },
+            {
+                path: '/admin/product-create',
+                element: <AddProduct />
             },
             {
                 path: '/admin/gallery-category',
