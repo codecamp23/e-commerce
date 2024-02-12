@@ -43,7 +43,7 @@ const CategoryContext = () => {
     const MetaDes = useRef();
     const navigate = useNavigate("");
     const [errors, setErrors] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [totalPage, setTotalPage] = useState(null);
     const [limit] = useState(5);
     const [page, setPage] = useState(1);

@@ -36,6 +36,7 @@ const Gallery = () => {
         getGalleryCategories();
         getAtFirstGalleries(page, galleryCategoryId, search);
         getGalleries();
+        getGalleries();
     }, []);
     const closeAddModal = () => {
         closeAddForm.current.click();

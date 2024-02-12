@@ -32,23 +32,22 @@ import SizeOption from '../../../components/backend/product/SizeOption.jsx';
 import Offer from '../../../components/backend/product/Offer.jsx';
 import VatTax from '../../../components/backend/product/VatTax.jsx';
 import Tags from '../../../components/backend/product/Tags.jsx';
-import AuthCheckContext from '../../../context/backend/AuthCheckContext.jsx';
 
 const AddProduct = () => {
     const {
         /*this methods for gallery start*/ getGalleries, gallery, getGalleryCategories, getGalleryCategoryId, search, galleryByCategory, galleryCategories, galleries, selectImage, galleryId, URL, currentPage, lastPage, pageHandle, imageUploadModalClose, onGallerySearch, setGallery, setImageCount, imageCount, removeImage, setGalleryImage, GalleryImage, Image, ImageName, ImageSize, ImageExtention, /*this methods for gallery end*/  
         /* product create disable components handle start */ colorHandle, colorStatus, sizeHandle, sizeStatus, offerHandle, offerStatus, vatTaxHandle, vatTaxStatus, /* product create disable components handle end */ 
-        /* product create page work start */ getBrands, brands, getCategories, categories, getColors, colors,  /* product field start */ name, brand_id, unit, price, purchase_qty, weight, barcode, refundableYes, refundableNo, description, category_id, /* color_id,*/ setColorId, measurement_points, inches_measurement_type, centimeter_measurement_type, size_options, remark, /* that for offer */ discount, discount_price, vat, tax, vatFlatOrPercent, taxFlatOrPercent, setTags, tags, setSavePublishOrUnPublish, AddData, addForm  /* product field end */ /* product create page work end */ 
+        /* product create page work start */ getBrands, brands, getCategories, categories, getColors, colors,  /* product field start */ name, brand_id, unit, price, purchase_qty, weight, barcode, refundableYes, refundableNo, description, category_id, /* color_id,*/ setColorId, measurement_points, inches_measurement_type, centimeter_measurement_type, size_options, remark, /* that for offer */ discount, discount_price, vat, tax, vatFlatOrPercent, taxFlatOrPercent, setTags, tags, meta_title, meta_description, setSavePublishOrUnPublish, errors, AddData, addForm  /* product field end */ /* product create page work end */ 
     } = ProductContext();
-    const { checkAuthentication } = AuthCheckContext();
+    // const { checkAuthentication } = AuthCheckContext();
 
     let colorBackground;
     let sizeBackground;
     let offerBackground;
     let vatTaxBackground;
     useEffect(() => {
-        const userToken = localStorage.getItem('token');
-        checkAuthentication(userToken);
+        // const userToken = localStorage.getItem('token');
+        // checkAuthentication(userToken);
         // this function for gallery start
         getGalleries(currentPage, getGalleryCategoryId, search);
         getGalleryCategories();
@@ -94,7 +93,7 @@ const AddProduct = () => {
                         <AddProductPageHeader />
                         <form onSubmit={AddData} ref={addForm} className="row pt-2 px-3">
                             <ProductInformation /*this methods for gallery start*/ imageCount={imageCount} gallery={gallery} Image={Image} ImageName={ImageName} ImageSize={ImageSize} ImageExtention={ImageExtention} removeImage={removeImage}  /*this methods for gallery end*/ 
-                            /* product information start */ brands={brands} name={name} brand_id={brand_id} unit={unit} price={price} purchase_qty={purchase_qty} weight={weight} barcode={barcode} refundableYes={refundableYes} refundableNo={refundableNo} description={description} /* product information end */ />
+                            /* product information start */ brands={brands} name={name} brand_id={brand_id} unit={unit} price={price} purchase_qty={purchase_qty} weight={weight} barcode={barcode} refundableYes={refundableYes} refundableNo={refundableNo} description={description} meta_title={meta_title} meta_description={meta_description} errors={errors} /* product information end */ />
                             <div className="col-lg-5">
                                 <SelectCategory categories={categories} category_id={category_id} />
 

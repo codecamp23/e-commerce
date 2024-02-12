@@ -37,6 +37,9 @@ import product07 from '../../../assets/backend/images/products/07.png';
 import product08 from '../../../assets/backend/images/products/08.png';
 import product09 from '../../../assets/backend/images/products/09.png';
 import avatar from '../../../assets/backend/images/avatars/avatar-2.png';
+import avatar1 from '../../../assets/backend/images/avatars/avatar-1.png';
+import avatar2 from '../../../assets/backend/images/avatars/avatar-2.png';
+import avatar4 from '../../../assets/backend/images/avatars/avatar-4.png';
 
 const Header = () => {
     const { setToken } = useStateContext();
@@ -332,7 +335,7 @@ const Header = () => {
                                         <a className="dropdown-item" href="javascript:;">
                                             <div className="d-flex align-items-center">
                                                 <div className="user-online">
-                                                    <img src="assets/images/avatars/avatar-1.png" className="msg-avatar" alt="user avatar" />
+                                                    <img src={avatar1} className="msg-avatar" alt="user avatar" />
                                                 </div>
                                                 <div className="flex-grow-1">
                                                     <h6 className="msg-name">Daisy Anderson<span className="msg-time float-end">5 sec
@@ -355,7 +358,7 @@ const Header = () => {
                                         <a className="dropdown-item" href="javascript:;">
                                             <div className="d-flex align-items-center">
                                                 <div className="user-online">
-                                                    <img src="assets/images/avatars/avatar-2.png" className="msg-avatar" alt="user avatar" />
+                                                    <img src={avatar2} className="msg-avatar" alt="user avatar" />
                                                 </div>
                                                 <div className="flex-grow-1">
                                                     <h6 className="msg-name">Althea Cabardo <span className="msg-time float-end">14
@@ -367,7 +370,7 @@ const Header = () => {
                                         <a className="dropdown-item" href="javascript:;">
                                             <div className="d-flex align-items-center">
                                                 <div className="notify bg-light-success text-success">
-                                                    <img src="assets/images/app/outlook.png" width="25" alt="user avatar" />
+                                                    <img src={outlook} width="25" alt="user avatar" />
                                                 </div>
                                                 <div className="flex-grow-1">
                                                     <h6 className="msg-name">Account Created<span className="msg-time float-end">28 min
@@ -390,7 +393,7 @@ const Header = () => {
                                         <a className="dropdown-item" href="javascript:;">
                                             <div className="d-flex align-items-center">
                                                 <div className="user-online">
-                                                    <img src="assets/images/avatars/avatar-4.png" className="msg-avatar" alt="user avatar" />
+                                                    <img src={avatar4} className="msg-avatar" alt="user avatar" />
                                                 </div>
                                                 <div className="flex-grow-1">
                                                     <h6 className="msg-name">Katherine Pechon <span className="msg-time float-end">15
@@ -413,7 +416,7 @@ const Header = () => {
                                         <a className="dropdown-item" href="javascript:;">
                                             <div className="d-flex align-items-center">
                                                 <div className="notify bg-light-primary">
-                                                    <img src="assets/images/app/github.png" width="25" alt="user avatar" />
+                                                    <img src={github} width="25" alt="user avatar" />
                                                 </div>
                                                 <div className="flex-grow-1">
                                                     <h6 className="msg-name">New 24 authors<span className="msg-time float-end">1 day

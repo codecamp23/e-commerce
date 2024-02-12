@@ -73,10 +73,12 @@ Route::post('/size-update/{id}', [SizeController::class, 'update']);
 Route::get('/size-delete/{id}', [SizeController::class, 'destroy']);
 
 // product api routes
-Route::get('/product-get', [ProductController::class, 'get']);
+Route::get('/products-get', [ProductController::class, 'get']);
 Route::post('/product-store', [ProductController::class, 'store']);
 Route::get('/product-edit/{id}', [ProductController::class, 'edit']);
 Route::post('/product-update/{id}', [ProductController::class, 'update']);
+Route::get('/product-refundable-change/{id}', [ProductController::class, 'productRefundableChange']);
+Route::get('/product-status-change/{id}', [ProductController::class, 'productStatusChange']);
 Route::get('/product-delete/{id}', [ProductController::class, 'destroy']);
 
 

@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:200',
-            'brand_id' => 'required',
+            'brand_id' => ' ',
             'category_id' => 'required',
             'unit' => 'required',
             'price' => 'required',
@@ -32,7 +32,8 @@ class StoreRequest extends FormRequest
             'offer' => 'nullable',
             'description' => 'required',
             'refundable' => 'required',
-            'image' => 'required|image|mimes:png,jpg,png,jpeg,webp',
+            // 'image' => 'required|image|mimes:png,jpg,png,jpeg,webp',
+            'image' => 'required',
             'meta_tag' => 'nullable',
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable',

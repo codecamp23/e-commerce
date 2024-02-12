@@ -22,6 +22,8 @@ import Color from './pages/backend/color/Color';
 import ColorEdit from './pages/backend/color/ColorEdit';
 import Size from './pages/backend/size/Size';
 import SizeCreate from './pages/backend/size/SizeCreate';
+import Products from './pages/backend/product/Products';
+import ProductEdit from './pages/backend/product/ProductEdit';
 
 const Router = createBrowserRouter([
     {
@@ -92,6 +94,14 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/product-create',
                 element: <AddProduct />
+            },
+            {
+                path: '/admin/products',
+                element: <Products />
+            },
+            {
+                path: '/admin/product-edit/:id',
+                element: <ProductEdit />
             },
             {
                 path: '/admin/gallery-category',

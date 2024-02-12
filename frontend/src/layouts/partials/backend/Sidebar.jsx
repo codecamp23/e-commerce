@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import logoIcon from '../../../assets/backend/images/logo-icon.png';
 
 const Sidebar = () => {
     const pathname = window.location.pathname;
+    const {id} = useParams();
 
     return (
         <div className="sidebar-wrapper" data-simplebar="true">
@@ -61,15 +62,11 @@ const Sidebar = () => {
                                 Add New Product
                             </Link>
                         </li>
-                        <li> <a href="app-file-manager.html"><i className='bx bx-radio-circle'></i>File Manager</a>
-                        </li>
-                        <li> <a href="app-contact-list.html"><i className='bx bx-radio-circle'></i>Contatcs</a>
-                        </li>
-                        <li> <a href="app-to-do.html"><i className='bx bx-radio-circle'></i>Todo List</a>
-                        </li>
-                        <li> <a href="app-invoice.html"><i className='bx bx-radio-circle'></i>Invoice</a>
-                        </li>
-                        <li> <a href="app-fullcalender.html"><i className='bx bx-radio-circle'></i>Calendar</a>
+                        <li className={pathname === '/admin/products' ? 'mm-active' : pathname === `/admin/product-edit/${id}` ? 'mm-active' : ''}>
+                            <Link to="/admin/products">
+                                <i className='bx bx-radio-circle'></i>
+                                All Products
+                            </Link>
                         </li>
                     </ul>
                 </li>

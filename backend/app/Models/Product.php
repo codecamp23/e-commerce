@@ -27,7 +27,6 @@ class Product extends Model
         'measurement_type',
         'discount',
         'discount_price',
-        'offer',
         'remark',
         'description',
         'refundable',
@@ -68,5 +67,14 @@ class Product extends Model
             $slug = $productSlug;
         }
         return $slug;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 }

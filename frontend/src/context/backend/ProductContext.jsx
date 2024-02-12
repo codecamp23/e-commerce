@@ -1,7 +1,10 @@
 import { useRef, useState } from "react";
 import axiosClient from "../../axios-client";
+import useNotify from './../../notify';
+import { useNavigate } from 'react-router-dom';
 
 const ProductContext = () => {
+    const { successMsg, warningMsg } = useNotify();
     // gallery image uploader start
     const [galleries, setGalleries] = useState([]);
     const [URL, setURL] = useState('');
@@ -42,6 +45,7 @@ const ProductContext = () => {
     const [brands, setBrands] = useState([]);
     const [categories, setCategories] = useState([]);
     const [colors, setColors] = useState([]);
+    const productId = useRef();
     const name = useRef();
     const brand_id = useRef();
     const unit = useRef();
@@ -64,13 +68,27 @@ const ProductContext = () => {
     const discount = useRef();
     const discount_price = useRef();
     const vat = useRef();
-    const tax = useRef(); 
+    const tax = useRef();
     const vatFlatOrPercent = useRef();
     const taxFlatOrPercent = useRef();
     const [tags, setTags] = useState([]);
+    const meta_title = useRef();
+    const meta_description = useRef();
     const [savePublishOrUnPublish, setSavePublishOrUnPublish] = useState('');
     const [errors, setErrors] = useState([]);
     const addForm = useRef();
+    const navigate = useNavigate("");
+    // get products start
+    const [products, setProducts] = useState([]);
+    // const [productsLength, setProductsLength] = useState(null);
+    const [page, setPage] = useState(1);
+    const [limit] = useState(3);
+    const [totalPage, setTotalPage] = useState(null);
+    const [productSearch, setProductSearch] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [product, setProduct] = useState({}); // product edit work start
+    const updateForm = useRef(); // product edit work start
+    // get products end
     // product create page work end
 
 
@@ -172,50 +190,190 @@ const ProductContext = () => {
     // add product data 
     const AddData = async (e) => {
         e.preventDefault();
-        const descriptionValue = $(description.current).summernote('code');
-        const payload = {
-            name: name.current.value,
-            brand_id: brand_id.current.value,
-            unit: unit.current.value,
-            price: price.current.value,
-            purchase_qty: purchase_qty.current.value,
-            weight: weight.current.value,
-            barcode: barcode.current.value,
-            refundableYes: refundableYes.current.value,
-            refundableNo: refundableNo.current.value,
-            description: descriptionValue,
-            category_id: category_id.current.value,
-            colorId: colorStatus === true ? colorId === '' ? '' : colorId : null,
-            measurement_points: sizeStatus === true ? measurement_points.current.value : null,
-            measurement_type: sizeStatus === true ? inches_measurement_type.current.checked === true ? inches_measurement_type.current.value : centimeter_measurement_type.current.checked === true && centimeter_measurement_type.current.value : null,
-            size_options: sizeStatus === true ? size_options.current.value : null,
-            remark: offerStatus === true ? remark.current.value : null,
-            discount: offerStatus === true ? discount.current.value : null,
-            discount_price: offerStatus === true ? discount_price.current.value : null,
-            vat: vatTaxStatus === true ? vat.current.value : null,
-            tax:  vatTaxStatus === true ? tax.current.value : null,
-            vatFlatOrPercent:  vatTaxStatus === true ? vatFlatOrPercent.current.value : null,
-            taxFlatOrPercent:  vatTaxStatus === true ? taxFlatOrPercent.current.value : null,
-            tags: tags,
-            savePublishOrUnPublish: savePublishOrUnPublish,
-            image: Image.current.value,
-            image_name: ImageName.current.value,
-            image_size: ImageSize.current.value,
-            image_extention: ImageExtention.current.value,
+        try {
+            const descriptionValue = $(description.current).summernote('code');
+            const payload = {
+                name: name.current.value,
+                brand_id: brand_id.current.value,
+                unit: unit.current.value,
+                price: price.current.value,
+                purchase_qty: purchase_qty.current.value,
+                weight: weight.current.value,
+                barcode: barcode.current.value,
+                refundable: refundableYes.current.checked ? refundableYes.current.value : refundableNo.current.checked ? refundableNo.current.value : null,
+                description: descriptionValue,
+                category_id: category_id.current.value,
+                color_id: colorStatus === true ? colorId === '' ? '' : colorId : null,
+                measurement_points: sizeStatus === true ? measurement_points.current.value : null,
+                measurement_type: sizeStatus === true ? inches_measurement_type.current.checked === true ? inches_measurement_type.current.value : centimeter_measurement_type.current.checked === true && centimeter_measurement_type.current.value : null,
+                size: sizeStatus === true ? size_options.current.value : null,
+                remark: offerStatus === true ? remark.current.value : null,
+                discount: offerStatus === true ? discount.current.value : null,
+                discount_price: offerStatus === true ? discount_price.current.value : null,
+                vat: vatTaxStatus === true ? vat.current.value : null,
+                tax: vatTaxStatus === true ? tax.current.value : null,
+                vat_status: vatTaxStatus === true ? vatFlatOrPercent.current.value : null,
+                tax_status: vatTaxStatus === true ? taxFlatOrPercent.current.value : null,
+                tags: tags,
+                image: Image.current.value,
+                image_name: ImageName.current.value,
+                image_size: ImageSize.current.value,
+                image_extention: ImageExtention.current.value,
+                meta_title: meta_title.current.value,
+                meta_description: meta_description.current.value,
+                status: savePublishOrUnPublish,
+            }
+            const response = await axiosClient.post(`/product-store`, payload);
+            if (response.data.status === 'success') {
+                navigate("/admin/products")
+                successMsg(response.data.message);
+            }
+        } catch (error) {
+            setErrors(error.response.data.errors);
         }
-        const response = await axiosClient.get(`/product-store`, payload);
-        console.log(response);
-        // if (refundableNo.current.checked) {
-        //     console.log(refundableNo.current.value)
-        // }
-        // if (inches_measurement_type.current.checked && centimeter_measurement_type.current.checked === false) { 
-        //     console.log(inches_measurement_type.current.value);
-        // }
-        // if (centimeter_measurement_type.current.checked && inches_measurement_type.current.checked === false) { 
-        //     console.log(centimeter_measurement_type.current.value);
-        // }
-        // console.log(colorId);
-        // console.log(vat.current.value);
+    }
+
+    const getAllProducts = async (Page, Search) => {
+        setLoading(true);
+        const response = await axiosClient.get(`/products-get?search=${Search}`);
+        // setProductsLength(response.data.length);
+        setTotalPage(Math.ceil(response.data.length / limit));
+        getProducts(Page, limit, response.data);
+        setLoading(false);
+        console.log(response.data);
+    }
+    const getProducts = (Page, Limit, Products) => {
+        let array = [];
+        for (var i = (Page - 1) * Limit; i < (Page * Limit) && Products[i]; i++) {
+            array.push(Products[i]);
+        }
+        setProducts(array);
+    }
+    const handlePageChange = (value) => {
+        if (value === "... ") {
+            setPage(1);
+            getAllProducts(1, productSearch)
+        } else if (value === "&lsaquo;") {
+            if (page !== 1) {
+                setPage(page - 1);
+                getAllProducts(page - 1, productSearch)
+            }
+        } else if (value === "&rsaquo;") {
+            if (page !== totalPage) {
+                setPage(page + 1);
+                getAllProducts(page + 1, productSearch)
+            }
+        } else if (value === " ...") {
+            setPage(totalPage);
+            getAllProducts(totalPage, productSearch)
+        } else {
+            setPage(value);
+            getAllProducts(value, productSearch)
+        }
+    }
+    const getProduct = async (id) => {
+        const response = await axiosClient.get(`/product-edit/${id}`);
+        if (response.data.image !== null) {
+            setEditImageCount(1)
+        }
+        // console.log(response.data);
+        if (response.data.color_id !== null) {
+            setColorId(response.data.color_id);
+            setColorStatus(true);
+        }
+        if (response.data.measurement_points !== null || response.data.measurement_type !== null || response.data.size !== null) {
+            setSizeStatus(true);
+        }
+        if (response.data.remark !== null || response.data.discount !== null || response.data.discount_price !== null) {
+            setOfferStatus(true);
+        }
+        if (response.data.vat !== null || response.data.tax !== null) {
+            setVatTaxStatus(true);
+        }
+        if (response.data.meta_tag !== null) {
+            const newArray = response.data.meta_tag.split(',').map((str, index) => ({
+                id: str.trim(),
+                text: str.trim()
+            }));
+            setTags(newArray);
+        }
+        setProduct(response.data);
+    }
+
+    const searchHandle = () => {
+
+    }
+
+    const updateData = async (e) => {
+        e.preventDefault();
+        try {
+            const id = productId.current.value;
+            const descriptionValue = $(description.current).summernote('code');
+            const payload = {
+                name: name.current.value,
+                brand_id: brand_id.current.value,
+                unit: unit.current.value,
+                price: price.current.value,
+                purchase_qty: purchase_qty.current.value,
+                weight: weight.current.value,
+                barcode: barcode.current.value,
+                refundable: refundableYes.current.checked ? refundableYes.current.value : refundableNo.current.checked ? refundableNo.current.value : null,
+                description: descriptionValue,
+                category_id: category_id.current.value,
+                color_id: colorStatus === true && colorId !== '' ? colorId : null,
+                measurement_points: sizeStatus === true ? measurement_points.current.value : null,
+                measurement_type: sizeStatus === true ? inches_measurement_type.current.checked === true ? inches_measurement_type.current.value : centimeter_measurement_type.current.checked === true && centimeter_measurement_type.current.value : null,
+                size: sizeStatus === true ? size_options.current.value : null,
+                remark: offerStatus === true ? remark.current.value : null,
+                discount: offerStatus === true ? discount.current.value : null,
+                discount_price: offerStatus === true ? discount_price.current.value : null,
+                vat: vatTaxStatus === true ? vat.current.value : null,
+                tax: vatTaxStatus === true ? tax.current.value : null,
+                vat_status: vatTaxStatus === true ? vatFlatOrPercent.current.value : null,
+                tax_status: vatTaxStatus === true ? taxFlatOrPercent.current.value : null,
+                tags: tags,
+                image: Image.current.value,
+                image_name: ImageName.current.value,
+                image_size: ImageSize.current.value,
+                image_extention: ImageExtention.current.value,
+                meta_title: meta_title.current.value,
+                meta_description: meta_description.current.value,
+                status: savePublishOrUnPublish,
+            }
+            const response = await axiosClient.post(`/product-update/${id}`, payload);
+            console.log(response.data);
+            if (response.data.status) {
+                successMsg(response.data.message);
+                navigate("/admin/products");
+            }
+        } catch (error) {
+            setErrors(error.response.data.errors);
+        }
+    }
+
+    const refundableHandle = async (id) => {
+        const response = await axiosClient.get(`/product-refundable-change/${id}`);
+        if (response.data.status === 'success_yes') {
+            successMsg(response.data.message);
+        } else {
+            warningMsg(response.data.message);
+        }
+    }
+    const productStatus = async (id) => {
+        const response = await axiosClient.get(`/product-status-change/${id}`);
+        if (response.data.status === 'publish') {
+            successMsg(response.data.message);
+        } else {
+            warningMsg(response.data.message);
+        }
+    }
+    const dataDelete = async (id) => {
+        const response = await axiosClient.get(`/product-delete/${id}`);
+        if(response.data.status === 'success')
+        {
+            successMsg(response.data.message);
+            await getAllProducts(page, productSearch);
+        } 
     }
 
 
@@ -269,6 +427,7 @@ const ProductContext = () => {
         categories,
         getColors,
         colors,
+        productId,
         name, // product field start
         brand_id,
         unit,
@@ -280,7 +439,8 @@ const ProductContext = () => {
         refundableNo,
         description,
         category_id,
-        // color_id,
+        // color_id, 
+        colorId,
         setColorId,
         measurement_points,
         inches_measurement_type,
@@ -295,10 +455,28 @@ const ProductContext = () => {
         taxFlatOrPercent,
         setTags,
         tags, // product field end
+        meta_title,
+        meta_description,
         setSavePublishOrUnPublish, // set publish or unpublish
         errors,
         AddData,
-        addForm
+        addForm,
+        getAllProducts, // product get start
+        loading,
+        products,
+        page,
+        limit,
+        totalPage,
+        productSearch,
+        searchHandle,
+        getProduct, // product edit start
+        product,
+        updateData,
+        updateForm,
+        refundableHandle,
+        productStatus,
+        dataDelete,
+        handlePageChange
         // product information start
     }
 }

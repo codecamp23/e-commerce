@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('size', 50)->nullable();
             $table->string('discount', 50)->nullable();
             $table->string('discount_price', 50)->nullable();
-            $table->enum('offer', ['End of Season', 'Winter Sale', 'Electronic', 'Flash Deal'])->nullable();
+            // $table->enum('offer', ['End of Season', 'Winter Sale', 'Electronic', 'Flash Deal'])->nullable();
             $table->longText('description');
             $table->enum('remark', ['new', 'hot', 'top_selling', 'featured', 'trending'])->nullable();
             $table->enum('refundable', ['yes', 'no']);
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('image')->nullable();
 
             // seo
-            $table->string('meta_tag')->nullable();
+            $table->string('meta_tag', 1000)->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
 

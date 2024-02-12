@@ -4,7 +4,7 @@
  import '../../../assets/backend/js/jquery.min.js';
  import '../../../assets/backend/summernote/summernote-lite.js'; 
  
- const Description = ({ description, errors }) => {
+ const DescriptionEdit = ({ description, product }) => {
  
      useEffect(() => {
          $(description.current).summernote({
@@ -12,6 +12,10 @@
              height: 250
          });
      }, []);
+
+     if (product.description !== null) {
+         $(description.current).summernote('code', product.description);
+     }
  
      return (
          <div className="card px-3">
@@ -19,17 +23,16 @@
                  <span className="fs-6 fw-normal">Description <small className='text-danger'>*</small></span>
              </div> 
              <div className="card-body px-4 py-4">   
-                 <textarea ref={description} className="form-control" rows="6"></textarea>
-                 {errors.description && <small className='text-danger ps-2'>{errors.description}</small>}
+                 <textarea ref={description} className="form-control" rows="6" defaultValue={product.description}></textarea>
              </div>
          </div>
      );
  }
  
- Description.propTypes = {
+DescriptionEdit.propTypes = {
      description: PropTypes.any,
-     errors: PropTypes.any,
+     product: PropTypes.any,
  }
  
- export default Description;
+export default DescriptionEdit;
  

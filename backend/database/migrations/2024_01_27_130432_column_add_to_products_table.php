@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('tax_status', 50)->nullable();
             $table->decimal('weight', 10, 2)->nullable();
             $table->integer('purchase_qty')->nullable();
-            $table->string('tags', 1000)->nullable();
+            // $table->string('tags', 1000)->nullable();
             $table->string('barcode')->nullable();
         });
     }

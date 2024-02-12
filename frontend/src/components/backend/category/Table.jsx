@@ -26,9 +26,8 @@ const Table = ({ categoriesLength, loading, categories, page, limit, totalPage, 
                                 <img src={category.image} style={{ width: "50px" }} alt="..." />
                             </td>
                             <td className="py-md-3 py-0">
-                                <div className="form-check form-switch">
+                                <div className="form-check form-switch d-flex justify-content-center ">
                                     <input className="form-check-input bg-info border-info" type="checkbox" role="switch" id="flexSwitchCheckChecked" onChange={() => categoryStatusChange(category.id)} defaultChecked={category.status === "active" ? true : false}  />
-                                    <label className="form-check-label" htmlFor="flexSwitchCheckChecked">Checked switch checkbox input</label>
                                 </div>
                             </td>
                             <td className="text-muted py-md-3 py-0">
